@@ -847,7 +847,40 @@
                 // vue在进行新树与旧树对比的时候，通过节点的key来判断是否是相同的节点。
                 // 相同节点就跳过当前节点的对比。如果没有key。diff算法需要对比每一层树每一个节点
             
+            // createElement 
+            // createTextNode
+            // setAttribute
+            // removeAttribute
+            // createDocumentFragment
+            // insertBefore
+            // appendChild
+
+            // 当我们访问一个对象的属性的时候，会先在对象自身上查找属性，如果没有就会去对象的原型对象prototype上查找
+            // 如果有就返回，如果没有就继续查找一直查找到Object.prototype为止。返回null 每个对象实例都能
+            // 使用toString这个方法就是沿着原型链查找Object.prototype   
             
+            // EventLoop
+                // js是单线程，为了防止一个函数执行时间过长阻塞后面的代码，所以将同步代码直接压入执行栈
+                // 等待主线程执行，将异步代码推入任务队列，异步代码分为宏任务和微任务。一个宏任务都有一个微任务队列
+                // 由于宏任务队列执行时间过长（银行柜台示例）所以微任务先执行，再去检查宏任务队列
+            
+            // Vue的修饰符有哪些？
+            // .stop .prevent .once
+            
+            
+            // hash模式兼容性好不美观不利于SEO hash改变会触发hashchange这个方法
+            // history兼容性不好，美观需要服务端配置。以来html5 history api pushState replaceState
+
+            // Vue中的设计模式？
+            //     工厂模式：传入参数可以创建实例（虚拟节点的创建）
+            //     单例模式：new 多次只有一个实例
+            //     发布订阅模式：eventBus
+            //     装饰器模式：插槽，扩展子组件
+
+            // Vue响应式
+                // 每个data中的属性都有一个dep来存放它的依赖watcher，当属性变化后会通知自己对应的watcher去更新
+            
+            // EventLoop事件循环，是指浏览器或者Node的一种解决JavaScript单线程运行时不会阻塞的一种机制
     </script>
 </body>
 </html>
