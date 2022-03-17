@@ -1,41 +1,9 @@
-### 关于框架和包
-    * 第三方的东西不要纠结 
-    * 先以解决问题为主
 ### Node.js是什么
-    * Node.js不是一门语言
-    * Node.js不是库，不是框架
+    * Node.js不是一门语言,不是库，不是框架
     * Node.js是一个JavaScript运行时环境
     * Node.js可以解析和执行JavaScript代码
     * 以前只有浏览器解析执行JavaScript代码
     * 现在可以脱离浏览器解析执行JavaScript代码，一切都归功于node.js
-### 浏览器中的JavaScript
-    * ECMAScript
-        *基本的语法
-        *if
-        *var
-        *function
-        *Object
-        *Array
-    * BOM
-    * DOM
-### Node.js中的JavaScript
-    * 没有BOM, DOM
-    * ECMAScript
-    * 在Node这个JavaScript执行环境中为JavaScript提供了一些服务器级别的操作API
-        * 例如文件的读写
-        * 网络服务的构建
-        * http服务器
-        * 网络通信
-### 构建Chrome的V8引擎之上
-    * 代码只是具有特定格式的字符串而已
-    * 引擎可以认识它，引擎可以帮你去解析和执行
-    * Google的Chrome的V8引擎是目前公认的解析执行JavaScript代码最快的
-    * Node.js的作者把Google的Chrome中的V8引擎移植了出来开发了一个独立的
-    JavaScript运行时环境
-### Node.js特有的功能
-    * event.driven 事件驱动
-    * non-blocking I/O model非阻塞IO模型（异步）
-    * 轻量和高效的
 ### Node的生态环境
     * npm是世界上最大开源生态系统
     * 绝大多数JavaScript相关的包都存放在npm上
@@ -53,7 +21,7 @@
 ### IP地址和端口号
     * IP地址用来定位计算机
     * 端口号用来定位计算机上的应用程序
-### modul和module.exports
+### module和module.exports
     * 每个模块都默认有一个module对象，module对象中有一个exports对象
     * 我们可以把需要导出的成员都挂载到module.exports接口对象中
     * 也就是module.exports.xxx = xxx  很麻烦  点的太多了
