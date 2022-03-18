@@ -2,280 +2,892 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        #left {
+        .div1 {
+            width: 300px;
+            height: 300px;
+            background-color: pink;
+        }
+
+        .div2 {
+            width: 200px;
+            height: 200px;
+            background-color: red;
+        }
+
+        .div3 {
             width: 100px;
-            height: 100%;
-            float: left;
-            background-color: black;
-        }
-        #right {
-            height: 100%;
-            margin-left: 100px;
-            background-color: aqua;
-        }
-        .header {
-            width: 100%;
             height: 100px;
-            background-color: black;
-        }
-        .container {
-            display: flex;
-            width: 100%;
-            height: 500px;
-        }
-        .container .left {
-            width: 100px;
-            background-color: aquamarine;
-            height: 100%;
-        }
-        .container .center {
-            flex: 1;
-            background-color: blue;
-        }
-        .container .right {
-            width: 100px;
-            height: 100%;
-            background-color: bisque;
+            background-color: green;
         }
     </style>
 </head>
 <body>
-    <div id="left">LLLLLLLLLLLLLLLL</div>
-    <div id="right">RRRRRRRRRRRRRRR</div>
-    <div class="header"></div>
-    <div class="container">
-        <div class="left"></div>
-        <div class="center"></div>
-        <div class="right"></div>
+    <div class="div1">
+        <div class="div2">
+            <div class="div3">
+
+            </div>
+        </div>
     </div>
     <script>
-        // 组合继承
-        function inherit(Son, Father) {
-            // 创建一个父类对原型副本
-            const prototype = Object.create(Father);
-            // 解决因创建原型导致原型构造函数丢失的问题
-            prototype.constructor = Son;
-            // 将父类的原型赋值给子类
-            Son.prototype = prototype;
-        };
-        // 实现new
-        function myNew(fn, ...args) {
-            // 提供构造函数的原型对象
-            const instance = Object.create(fn.prototype);
-            // 执行构造函数
-            const result = fn.apply(instance, args);
-            // 构造函数返回的是对象或者不是对象
-            return typeof result === 'object' ? result : instance;
+        function F() {
+            let test = new Array(1000);
+            return function S() {
+                console.log(test);
+                return test;
+            }
         }
-        // 实现create
-        function myCreate(proto) {
-            function Fn() {};
-            Fn.prototype = proto;
-            Fn.prototype.constructor = Fn;
-            return new Fn();
-        };
-        // 数组去重
-        const repeatArray = [1, 2, 1, 3, 4, 3];
-        // 利用Sets的元素不重复特性
-        console.log([...new Set(repeatArray)]);
-        // 利用对象特性
-        function uniqueArray(array) {
-            const result = {};
-            return array.filter(item => {
-                return result.hasOwnProperty(item + typeof item) ? false : result[item + typeof item] = true;
-            });
-        };
-        // 利用数组索引特性
-        function uniqueArrays(array) {
-            return array.filter((item, index, array) => {
-                return array.indexOf(item) === index;
-            });
-        };
-        console.log(uniqueArray(repeatArray));
-        console.log(uniqueArrays(repeatArray));
-        // 数组扁平化
-        const deepArray = [1, [2, 3, [4, 5, 6]]];
-        console.log(deepArray.flat(Infinity));
-        function flatArray(array) {
-            return array.reduce((result, item, index, array) => {
-                if (Object.prototype.toString.call(item) === '[object Array]') {
-                    return [...result, ...flatArray(item)];
-                } else {
-                    return [...result, item];
-                };
-            }, []);
-        };
-        console.log(flatArray(deepArray));
-        const object = {
-            id: 1,
-            detail: {
-                name: 'hcc',
-                age: 24,
-                gender: true,
-                other: {
-                    date: new Date(),
-                    say: function() {
-                        console.log('Hello');
-                    }
+        
+        let Fn = F();
+        Fn();
+
+        let info = { id: 1 };
+        let user = { info };
+        let set = new WeakSet([info]);
+        let map = new Map([[info, 'hahah']]);
+
+        info = null;
+
+        console.log(user.info);
+        console.log(set);
+        console.log(map);
+
+
+        console.log(typeof undefined);
+        console.log(typeof null);
+        console.log(Symbol() == Symbol());
+        console.log(typeof Symbol());
+
+
+        let objtest = {
+            name: 'hcc',
+            "age": 25,
+            25: true
+        }
+        console.log(objtest);
+
+
+        let obj1 = {};
+        obj2 = obj1;
+        obj2.name = 'xxx';
+        console.log(obj2, obj1);
+
+        console.log('-------------------------浅拷贝-----------');
+
+        function shallowClone(obj) {
+            const newObj = {};
+            for (let key in obj) {
+                if (obj.hasOwnProperty.call(obj, key)) {
+                    newObj[key] = obj[key];
                 }
             }
+            return newObj;
+        }
+        console.log(Object.assign({}, objtest));
+        console.log(shallowClone(objtest));
+
+        console.log('----------------------------数组浅拷贝----------------');
+        const cloneArray = [1, 2, 3];
+        console.log(cloneArray.slice(0,3));
+
+        const flatArray = [1, [2, [3]]];
+        console.log(flatArray.flat(2));
+
+        console.log('------------------填充数组------------');
+        let fillArray = [1, 2, 3, 4, 5];
+        console.log(fillArray.fill(6, 1, 2));
+
+        console.log('------------------reduce-----------------');
+        const reduceArray = [1, 2, 3, 4, 5];
+        let reduceResult = reduceArray.reduce((sum, cur) => sum + cur );
+        console.log(reduceResult);
+
+        console.log('-----------------splice-------------');
+        const spliceArray = [1, 2, 3, 4, 5];
+        spliceArray.splice(2, 1, '三');
+        console.log(spliceArray);
+        
+        console.log('-------------------deepClone------------------');
+        const deepCloneObj = {
+            name: 'hcc',
+            hobby: {
+                music: true,
+                girl: true,
+                eat: 'chicken'
+            },
+            money: 50
         };
-        // 实现深拷贝
-        function deepCopy(object, hash = new WeakMap()) {
-            if (object instanceof RegExp) {
-                return RegExp(object);
-            };
-            if (object instanceof Date) {
-                return Date(object);
-            };
-            if (object === null || typeof object !== 'object') {
-                return object;
-            };
-            if (hash.has(object)) {
-                return object;
-            };
-            const result = new object.constructor();
-            hash.set(object, result);
-            for (const key in object) {
-                if (object.hasOwnProperty(key)) {
-                    result[key] = deepCopy(object[key], hash);
-                };
-            };
-            return result;
-        };
-        // 实现浅拷贝
-        function shallowCopy(object) {
-            const result = {};
-            for (const key in object) {
-                result[key] = object[key];
-            };
-            return result;
-        };
-        const deep_copy = deepCopy(object);
-        deep_copy.id = 2;
-        console.log(deep_copy);
-        const shallow_copy = shallowCopy(object);
-        shallow_copy.id = 3;
-        console.log(shallow_copy);
-        // 实现柯里化
-        function add(a, b, c) {
-            return a + b + c;
-        };
-        function currying(fn, ...args) {
-            if (fn.length > args.length) {
-                return (...newArgs) => currying(fn, ...args, ...newArgs);
-            } else {
-                return fn(...args);
-            };
-        };
-        console.log(currying(add)(1)(2)(3));
-        console.log(currying(add)(1, 2, 3));
-        // 实现instanceof
-        function myInstanceOf(left, right) {
-            let prototype = Object.getPrototypeOf(left);
-            while (left) {
-                if (prototype === null) {
-                    return false;
-                };
-                if (prototype === right.prototype) {
-                    return true;
-                };
-                prototype = Object.getPrototypeOf(prototype);
-            };
-        };
-        // 实现AJAX
-        function AJAX() {
-            return new Promise((resolve, reject) => {
-                const xhr = new XMLHttpRequest();
-                xhr.open(url, method, true);
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState === 4 && xhr.status === 200) {
-                        resolve(xhr.responseText);
-                    } else {
-                        reject('请求错误')
-                    };
+        const newDeepCloneObj = JSON.parse(JSON.stringify(deepCloneObj));
+        console.log(newDeepCloneObj);
+
+
+        const shallowCloneObj = Object.assign({}, deepCloneObj);
+        deepCloneObj.hobby.eat = 'fish';
+        
+        console.log('shallowCloneObj is', shallowCloneObj);
+        console.log(newDeepCloneObj, deepCloneObj);
+
+
+        const creDiv = document.createElement('div');
+        const txtNode = document.createTextNode("创建文本节点");
+        creDiv.innerHTML = `<span style="color: red">` + txtNode + `</span>`
+        
+        const fragment = document.createDocumentFragment();
+
+        fragment.append(creDiv);
+
+        document.querySelector('.div3').appendChild(fragment);
+
+
+        console.log('----------------------宏任务与微任务---------------');
+        // setTimeout(_ => console.log(4))
+
+        // async function main() {
+        //     console.log(1)
+        //     await Promise.resolve()
+        //     console.log(3)
+        // }
+
+        // main()
+
+        // console.log(2)
+        // async函数在await之前的代码都是同步执行的，可以理解为await之前的代码属于new Promise时
+        // 传入的代码，await之后的所有的代码都在Promise.then中的回调
+
+
+
+        // console.log('script start')
+
+        // async function async1() {
+        //     await async2()
+        //     console.log('async1 end')
+        // }
+        // async function async2() {
+        //     console.log('async2 end')
+        // }
+        // async1()
+
+        // setTimeout(function() {
+        //     console.log('setTimeout')
+        // }, 0)
+
+        // new Promise(resolve => {
+        //     console.log('Promise')
+        //     resolve()
+        // })
+        // .then(function() {
+        //     console.log('promise1')
+        // })
+        // .then(function() {
+        //     console.log('promise2')
+        // })
+
+        // console.log('script end')
+
+
+
+
+        // 执行栈在执行完同步任务后，查看执行栈是否为空，如果为空就去检查微任务队列是否为空
+        // 如果为空就去执行宏任务队列否则就一次性执行完所有微任务。
+
+        // 每次单个宏任务执行完成后检查微任务队列是否为空，如果不为空就一次性执行完所有微任务
+        // script start => async2 end => Promise => script end => async1 end => promise1 => promise2
+
+        console.log('---------------------浏览器进程架构--------------');
+        // Chrome采用多进程架构（早期单进程架构节约资源但是不稳定）
+        // 浏览器进程架构包括浏览器主进程（负责页面的显示与交互，其它进程的创建与销毁，各个页面的管理，网络资源的下载与管理）
+        // 第三方插件进程：每种类型的插件对应一个进程，仅当使用该插件时才创建
+        // GPU Process最多只有一个用于3D绘制
+        // Renderer Process称为渲染进程或浏览器内核，内部是多线程。主要负责页面渲染，脚本执行，事件处理
+            // GUI渲染线程，JS引擎线程，事件触发线程，定时器触发线程，异步http请求线程
+                // GUI渲染线程负责渲染浏览器界面，解析HTML,CSS构建DOM树。
+                // 页面发生重绘（Repaint文档结构未发生改变）
+                // 或者重排（Reflow文档结构发生改变）时该线程就会执行     
+                // GUI渲染线程与JS引擎线程是互斥的不能同时执行。JS中可能存在操作DOM的程序 
+            // JS引擎线程，也称为JS内核（Chrome是V8）负责处理JavaScript程序
+                // JS引擎线程与渲染进程中的GUI渲染线程互斥。由于只有一个JS引擎线程所以
+                // 如果JS引擎线程代码阻塞就会造成页面渲染不连贯
+                // 如果JS引擎线程是多线程的就会造成 UI DOM操作冲突
+                // 如果JS引擎和GUI渲染线程不互斥。则JS操作DOM和GUI实际渲染的则不是预期的界面
+            // 事件触发线程
+                // 归属于浏览器管理而不是JS引擎。JS引擎线程要做的事情太多了忙不过来，需要浏览器开线程协助
+                // 当JS引擎线程处理事件程序时，会把事件交给事件触发线程队列等待JS引擎线程来执行
+            // 定时器触发线程
+                // 归属于浏览器管理而不是JS引擎。因为JS是单线程的，如果定时器阻塞会影响JS引擎的执行
+                // 通过单独的线程来管理。计时结束后添加到事件队列中等待JS引擎来执行
+                // W3C和HTML标准中规定，setTimeout中低于4ms的时间算作4ms
+            // 异步http请求线程
+                // 类似于上面的事件触发线程和定时器触发线程。在检测到状态变更时，如果有回调函数就添加到
+                // 事件队列中等待JS引擎空闲时来执行 
+
+
+            // CSS加载不会阻塞DOM解析。但是会阻塞DOM的的渲染。因为渲染树依赖于DOM和CSS资源
+            // CSS加载会阻塞JS的执行。因为JS中可能存在操作CSS的程序。所以JS执行前必须加载完所有的CSS
+
+            // CRP关键渲染路径：浏览器将HTML CSS JavaScript转换为在屏幕上呈现的元素内容所经历的一系列
+            // 步骤。为了尽快完成首次渲染，我们需要最大限度减少以下三种可变元素
+                // 关键资源的数量：可能阻止网页首次渲染的资源   
+                // 关键路径长度：获取所有关键资源所需的往返总时间
+                // 关键字节：实现网页首次渲染所需的总字节数，等同于所有关键资源传送文件大小的总和
+            console.log('---------------this call apply bind---------------');
+
+            // 改变this指向的方法
+                // 使用箭头函数
+                // 用变量保存调用对象再在函数内部使用
+                // call apply bind
+            // ES5中this永远指向最后调用它的那个对象。ES6中的箭头函数的this永远指向函数定义时的this而非执行
+            // 箭头函数中没有this绑定，必须通过查找作用域链来决定其值。
+            var a = {
+                name : "Cherry",
+                fn: function(a, b) {
+                    console.log(a + b);
                 }
-                xhr.send(null);
-            });
-        };
-        function Test(...args) {
-            console.log(args);
-        };
-        // 实现call
-        Function.prototype.myCall = function(context, ...args) {
-            context = Object(context) || window;
-            const fn = Symbol('fn');
-            context[fn] = this;
-            const result = context[fn](...args);
-            delete context[fn];
-            return result;
-        };
-        Test.myCall(this, 1, 2,3);
-        // 实现apply
-        Function.prototype.myApply = function(context, args) {
-            context = Object(context) || window;
-            const fn = Symbol("fn");
-            context[fn] = this;
-            const result = context[fn](...args);
-            delete context[fn];
-            return result;
-        };
-        // 实现bind
-        Function.prototype.myBind = function(context, ...args) {
-            return (...newArgs) => this.call(context, ...args, ...newArgs);
-        };
-        // 实现防抖
-        function debounce(fn, delay) {
-            return function() {
-                fn.id && clearTimeout(fn.id);
-                fn.id = setTimeout(() => {
-                    fn.call(this, arguments);
-                }, delay);
             };
-        };
-        // 实现节流
-        function throttle(fn, delay) {
-            let open = false;
-            return function() {
-                if (!open) {
-                    open = true;
-                    setTimeout(() => {
-                        fn.call(this, arguments);
-                        open = false;
-                    }, delay);
-                };
-            };
-        };
-        function throttles(fn, delay) {
-            let previous = 0;
-            return function() {
-                let now = Date.now();
-                if (now - previous > delay) {
-                    fn.apply(this, arguments);
-                    previous = now;
-                };
-            };
-        };
-        Promise.prototype.all = function(promiseArray) {
-            return new Promise((resolve, reject) => {
-                for (let index = 0; index < promiseArray.length; index++) {
-                    promiseArray[index]
-                        .then(work => {
-                            workArray[index] = work;
-                            count++;
-                            if (count === promiseArray.length) {
-                                resolve(workArray);
-                            };
-                        })
-                        .catch(error => {
-                            reject(error);
-                        });
-                };
-            });
-        };
+            var callFn = a.fn;
+            callFn.call(a, 1, 2);
+            callFn.apply(a, [1, 2]);
+            callFn.bind(a, 1, 2)();
+
+            console.log('--------------------原型链------------------');
+
+            function prototypeFn(name) {
+                this.name = name;
+            }
+            var perObj = new prototypeFn('hcc');
+            console.log(perObj.constructor);
+            console.log(prototypeFn.prototype.constructor);
+            console.log(perObj.__proto__ == prototypeFn.prototype);
+
+            console.log('数组常见的一些操作');
+            const flatArr = [1, [2,[3, [4]]]];
+            console.log(flatArr.toString());
+            console.log(flatArr.flat(Infinity));
+
+            const distinctArr = [1, 2, 1, 3, 4, 2, 5];
+            console.log(Array.from(new Set(distinctArr)));
+            console.log([...new Set(distinctArr)]);
+
+            let arr1 = [1, 2, 3];
+            let arr2 = [3, 4, 5];
+            console.log(arr1.concat(arr2));
+
+            console.log(arr2.includes(3));
+            console.log(arr2.indexOf(3));
+            console.log( arr2.find(item => item === 3));
+
+            console.log(arr2.every(item => item > 2));
+            console.log(arr2.some(item => item > 2));
+            console.log(arr2.filter(item => item > 2));
+            const objToArr = {
+                name: '张三',
+                age: 25,
+                gender: 0
+            }
+            console.log(Object.keys(objToArr));
+            console.log(Object.values(objToArr));
+            console.log('-----------------http与https------------');
+            // HTTP的优缺点
+                // 优点
+                    // 无连接：每次请求都要连接一次，请求结束就会断掉，节省网络资源开销
+                    // 无状态：每次请求都是独立的，请求结束不会记录任何信息，节省开销
+                    // 快速敏捷：访问某个资源只需要传送请求方法和URL就可以了。http协议简单请求更加快捷
+                    // 1.1新特性长连接：增加服务器的开销，提升数据传输的效率
+                    // 1.1管线化：发送所有的请求然后等待响应，而不是同步等待每一个请求的响应
+                    // Chrome规定一个域名并发连接是6个。所以可以把一些资源放在二级域名下面。同属一个服务器
+                // 缺点
+                    // 无状态：请求不会记录任何连接信息，没有记忆，无法区分多个请求是否来自同一个客户端。
+                    // 每次都需要重新传送信息。可能导致后面传送的信息增大
+                    // 不安全：明文传输可能被窃听，缺少身份认证可能遭遇伪装，缺少报文完整性验证可能遭遇篡改
+                    // 队头阻塞：开启长连接时只建立一个TCP连接，同一时刻只能处理一个请求，那么请求耗时过长时
+                    // 其他请求就只能处于阻塞状态
+            // 请求方法OPTIONS会列出请求资源支持的方法用于跨域请求
+            // GET与POST的区别
+                // GET在浏览器中回退时是无害的，POST会再次发送请求
+                // GET请求会被浏览器主动缓存，POST不会
+                // GET的请求参数直接爆露在URL中不安全，POST的请求参数存放在请求体中
+                // GET请求参数长度有限制，POST请求参数没有长度限制
+                // GET只接受URL编码，POST支持多种编码方式
+                // GET产生一个TCP数据包，POST产生两个数据包（先发送header相应100continue然后再发送data响应成功200）
+            // HTTP与HTTPS的区别
+                // HTTP是明文传输不安全，HTTPS是加密传输
+                // HTTP的端口是80，HTTPS的端口是443
+                // HTTP不用认证证书免费，HTTPS需要认证证书收费
+                // HTTP在OSI网络模型中是在应用层，HTTPS的TLS在传输层
+                // HTTP是无状态的，HTTPS是有状态的
+            // HTTP2.0
+                // 使用新的二进制协议，不再是纯文本，缩小请求体积
+                // 多路复用，同一域名下所有通信都是在单链接完成，提高了连接的复用率，减少了阻塞
+                // 头部压缩，服务器主动推送，HTTP2.0要求至少使用TLS1.2及以上
+                // 队头阻塞没有完全解决，多个请求在一个TCP管道中，但当HTTP2出现丢包时，整个TCP都要等待重传
+
+            // HTTP3.0
+                // HTTP2.0最主要的问题依然是对头阻塞。由于TCP在丢包时会重传。
+                // 所以在传输层直接使用UDP协议来传输。
+                // 实现了一套新的拥塞控制算法。实现了TCP流量控制
+            // 强缓存Cache-Control：max-age,s-max-age(代理服务器缓存时间),public可以被任何缓存区缓存
+            // private只能被浏览器缓存。no-cache:使用缓存强制客户端向服务器每次发送请求校验缓存是否过期。
+            // no-store不使用缓存
+            function Person(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            var per = new Person('hcc', 25);
+            console.log(per.__proto__ === Person.prototype);
+            console.log(Person.prototype);
+
+
+            console.log('---------------------存储---------------');
+            // cookie早期是用来弥补HTTP无状态缺陷的。容量缺陷只有4KB，性能缺陷。Cookie
+            // 每一次都跟着域名无论是否需要。安全缺陷。纯文本形式在浏览器和服务器中传递
+            // localStorage容量上限为5M。持久化存储除非手动删除。sessionStorage会话级别
+            // 页面关闭会话结束
+
+            // HTML5新特性
+                // 语义化标签，数据存储，音视频标签，websocket，地理定位，canvas
+            // 块级元素 div section header nav main footer article aside h1-h6 p ul li
+            // 行内元素 a b span img input i 
+            // 空元素（没有内容的html标签）<hr> <img> <link> <input>
+            // web worker 辅助JS引擎线程来执行JS。web worker独立于JS引擎线程通过postMessage将
+            // 结果回传到主线程。分担主线程执行JS代码的压力
+
+            // strong标签有加重语气的语义，b标签没有，只是一个简单加粗标签。搜索引擎更侧重strong
+            // title属性没有明确意义只表示标题，h1则表示层次明确的标题对SEO友好
+            // <!doctype html> 是告诉浏览器按照W3C标准模式来解析HTML文件
+
+            // 选择器优先级：行内样式>id选择器>类选择器=属性选择器=伪类选择器>标签选择器>通配符选择器
+            // 字体属性：font-family font-weight font-size font-style
+            // 文本属性：text-indent text-align line-height color vertical-align text-decoration
+            // display控制元素是否出现在文档流中子孙节点会一起消失，visibility控制元素显示隐藏。子孙节点继承这个属性可以让子孙节点显示
+
+            // 隐藏元素的方法
+                // display: none
+                // visibility: hidden
+                // opacity: 0
+                // position: absolute
+                // z-index: -1
+            // link和@import的区别
+                // link引用CSS时在页面载入时同时加载。@import在页面完全载入以后加载(影响CSS加载速度)
+                // link无兼容性问题,@import有兼容性问题
+            
+            // CSS3新特性
+                // 圆角(border-radius)，阴影（box-shadow），旋转(transform)，动画(animate)，渐变(gradient)，媒体查询(@media)监听窗口大小
+                // em和rem相对于px更加灵活。em相对于父元素,rem相对于根元素
+                // vw/vh和百分比很像。vw/vh相较于视窗。
+                // 只需要适配少部分移动设备，且分辨率对页面影响不大，使用px即可
+                // 需要适配各种移动设备，使用rem，例如适配iPhone和iPad等分辨率差别较大的设备
+            // 创建BFC的条件（一个独立的渲染环境）
+                // 元素设置浮动：float除none以外的值
+                // 元素设置绝对定位position(absolute,fixed)
+                // display：不为none
+                // overflow: hidden, auto
+
+                // BFC的特点：
+                    // 垂直方向上，自上而下排列。和文档流的排列方式一支
+                    // BFC中上下两个相邻的容器的margin会重叠
+                    // 计算BFC的高度时，需要计算浮动元素的高度
+                    // BFC是独立的容器，容器内部元素不会影响外部元素
+
+                    // 解决高度塌陷问题。子元素浮动父元素没有高度支撑。创建自适应两栏布局。overflow: hidden
+                    // sticky。在阈值以前是relative。超出阈值以后是fixed
+            console.log('-------------------------判断数组的方法-----------------');
+            const testArr = [1, 2, 3];
+            
+            console.log(Object.prototype.toString.call(testArr).slice(8, 13));
+            console.log(testArr.__proto__.constructor === Array);
+            console.log(testArr instanceof Array);
+            console.log(testArr.__proto__ === Array.prototype);
+            console.log(Array.isArray(testArr));
+            // 计算机处理数字是先转换位二进制。0.1和0.2是两个循环的小数但是超过了Number的范围所以只保留52位小数
+            console.log((0.1+0.2).toFixed(2));
+
+            function NumberEPSILON(arg1, arg2) {
+                return Math.abs(arg1 - arg2) < Number.EPSILON;
+            }
+            console.log(NumberEPSILON(0.1+0.2, 0.3));
+            console.log('1' === 1 == true);
+
+            console.log('--------------------var let const------------------');
+            // var 存在变量提升，ES5只有全局作用域和函数作用域。ES6的let const具有局部作用域
+            // var 可以在变量未声明前使用。let const必须在变量声明后使用（暂时性死区）
+            // var let初始化不用赋值，但是const必须赋值
+            // var 可以重复声明，let const不能重复声明
+
+            // 箭头函数没有this，没有arguments，没有prototype。所以不能new实例化
+            // 普通函数的this指向调用者。箭头函数的this指向定义箭头函数的作用域
+            var startEndString = 'xixi haha hehe';
+            startEndString.startsWith('xixi')
+            startEndString.endsWith('hehe')
+            startEndString.includes('hehe')
+            console.log(startEndString.startsWith('xixi'), startEndString.endsWith('hehe'), startEndString.includes('hehe'));
+
+            // js对象没有JSON数据格式严格
+            // js对象可以序列化为JSON对象JSON.stringify
+            // JSON对象可以被解析为js对象JSON.parse
+
+            // defer的加载和文档的解析同步，然后在文档解析完成以后再解析脚本
+            // async会使脚本异步加载，加载完成以后立即执行，如果这个时候文档未解析完成，仍然会影响文档的解析
+
+            // 类数组具有length属性和若干索引属性不具有数组的方法
+            // 通过concat和Array.from可以转化位数组。函数参数arguments就是类数组
+
+            // ASCLL编码专门为英语设计，Unicode编码包含了多种语言常见的实现方式有UTF-8，UTF-16,UTF-32
+            // 什么是DOM和BOM？
+                // DOM指的是文档对象模型，它指的是把文档当作一个对象，这个对象主要定义了处理网页内容的方法和接口
+                // BOM指的是浏览器对象模型，它指的是把浏览器当作一个对象来对待，这个对象主要是定义了与浏览器
+                // 进行交互的方法和接口。BOM的核心是window。它既是通过JS访问浏览器窗口的一个接口，又是一个全局对象。
+                // 这意味着在文档中定义的任何对象，变量和函数。都作为全局对象window的一个属性或者方法。window对象包含着location对象
+                // navigator对象，screen对象。并且DOM的最根本的对象document对象也是BOM的window对象的子对象
+            // ES6 Module与CommonJS的区别
+                // commonJS是对模块的浅拷贝，ES6 Module是对模块的引用，ES6 Module只存只读，不能改变其值
+                // 二者都可以对引入的对象赋值，对对对象内部属性的值改变
+
+            // 'use strict'
+                // 解决JS语法的不合理不严谨的地方
+                // 提高代码运行的效率
+                // 保证代码的安全运行
+            // for...in  for...of
+                // for...in 性能差用来遍历对象（包括原型链）for...of遍历具有Iterator接口的数据结构
+            
+            // 作用域链（全局作用域，函数作用域，局部作用域ES6）
+                // 在当前作用域中查找所需的变量，但是该作用域没有这个变量，就到父级作用域查找，一直查找到window。一层一层的作用域连接起来就是作用域链
+            // 执行上下文
+                // 全局执行上下文。首先会创建一个全局的window对象，设置this指向这个window。一个程序中只有一个全局执行上下文
+                // 函数执行上下文。函数执行时会为函数创建一个函数执行上下文，函数的执行上下文可以有多个
+                // JS引擎使用栈来管理执行上下文
+            // OPTIONS一个用途是获取服务器支持的所有HTTP请求方法。
+            // 另一个用途是CORS跨域资源共享时预请求。判断是否有权限访问服务器资源
+
+            // HTTP1.1与HTTP2.0
+                // HTTP2是二进制协议。多路复用。多个http请求共用一个TCP连接而且不用按照顺序发送和接受减少了对头阻塞
+                // HTTP2使用数据流发送，同一个连接里面连续的数据包可能属于不同的请求。因此必须对数据包做标记
+                // 头部信息压缩gzip。服务端推送
+            // 伪元素只存在于页面中不存在DOM中
+            // png jpg gif webp的对比
+                // png压缩比高可以在任何地方使用
+                // jpg是破坏性压缩
+                // gif可以实现动画效果
+                // webp压缩率更高的图片格式但是兼容性不好
+            // 行内块元素：inline-block。img，input仍然是排列在一行，但是可以设置宽度，高度以及内外边距
+            // 块级作用域解决了两个问题：内层变量可能覆盖外层变量。用来计数的循环变量泄露为全局变量
+            // 优化
+                // 图片压缩/懒加载
+                // 路由懒加载
+                // cdn引入公共库
+                // 开启GZIP压缩
+            // vue-router路由模式：hash，history
+                // hash：使用URL hash值来作为路由。支持所有浏览器。url中#后面的内容。
+                    // 通过hashchange事件来监听hash值的改变。location.hash进行赋值
+                // history：依赖HTML5 History API和服务器配置
+                    // history.pushState增加一条历史记录。history.replaceState替换历史记录。不进行刷新的情况的下操作浏览器历史记录
+            // Vuex：state（），mutation（唯一更改store中状态的方法），action（用于提交mutation异步），getter（允许从store中获取数据），module
+            // CORS除了简单请求（GET，POST，HEAD）都是复杂请求。都会进行预请求（OPTIONS）
+
+            var testArrs = [];
+            console.log(testArrs.prototype);
+            console.log(testArrs.__proto__);
+            console.log(testArrs.constructor);
+
+            // 对象转换为基本类型
+                // 调用Symbol.toPrimitive成功就结束
+                // 调用valueOf成功就结束
+                // 调用toString成功就结束
+            // CommonJS和ES Module
+                // 前者支持动态导入require。同步。文件都在本地
+                // 后者是异步作用在浏览器
+
+
+            // 防抖和节流的本质是不一样的。防抖是将多次抖动变为最后一次执行，节流是将多次执行变成间隔一段时间执行
+            // 事件委托：利用浏览器事件冒泡机制。把子节点的监听函数定义在父节点上
+                // 阻止冒泡：event.stopPropagation
+            // ES6新特性
+                // 新增symbol类型标识值
+                // const/let块级作用域
+                // 解构赋值
+                // 模板字符串
+                // 箭头函数
+                // Set/Map数据结构
+                // Proxy
+                // Promise
+
+                // symbol，const/let，解构赋值，箭头函数，Promise，Set/Map，Proxy
+
+                // MVVM是根据MVC演变而来。M是Model数据层，V是View视图层，VM是ViewModel（Controller）
+                // 视图更新会通知VM层更新数据
+
+                // watch属性监听是一个对象，键是需要被观察的属性，值是对应的回调函数
+                // computed计算属性，属性结果会被缓存，当computed中的函数所依赖的属性没有发生变化时，那么调用
+                // 的时候结果会从缓存中直接读取，不会重新计算消耗资源
+
+                // v-for中key的作用
+                    // key的作用主要是为了更高效的对比虚拟DOM中每个节点是否是相同节点
+                    // vue在patch过程中判断两个节点是否是相同节点，key是一个必要条件，渲染一组列表的时候，key是唯一标识
+                    // 所以如果不定义key的话，vue只能默认认为是相同的两个节点（然后patch每一个节点）。这样就会导致后面频繁的更新数据，导致整个patch过程比较低效
+
+                // 父——》子 props，子——》父$on $emit，ref，event bus，Vuex
+
+                // nextTick是在下次DOM更新循环结束之后延迟回调,可以在这里操作DOM 
+                // Vue在更新DOM时是异步执行的.只要监听到数据变化,Vue将开启一个队列,并缓冲在同一事件循环中发生的所有数据变更
+                // 如果同一个watcher被多次触发,只会被推入到队列中一次 避免重复更新数据浪费性能
+
+                // keep-alive实现组件缓存
+                // activated组件选然后调用 deactived组件销毁后调用
+
+                // Vue中diff算法
+                    // 在js中,渲染真实的dom开销非常大,如果修改某个数据会造成整个页面的销毁与重建
+                    // 因此就有了先根据真实dom生成虚拟dom,当数据更新时,虚拟dom会生成一个新的vnode,然后新的vnode和旧的
+                    // vnode作比较,发现不一样的地方直接修改在真实的DOM上面 然后旧的Vnode就成为了新的Vnode
+                
+                // Vue性能优化
+                    // SPA使用keep-alive缓存组件
+                    // key保证唯一
+                    // 使用路由懒加载,异步加载
+            // Object.defineProperty不支持数组,不支持数组的各种API Proxy可以支持数组的各种API
+            // Object.defineProperty劫持一个对象的属性, Proxy劫持一个对象
+
+            // 虚拟DOM本质上是JavaScript对象,是对真实DOM的抽象  状态变更时记录新树和旧树的差异
+            // 把差异更新到真实DOM中
+
+            // react组件通信的方法
+                // 父传子 props  子传父 callback(调用父组件通过props传递过来的函数)
+                // redux mobx 
+            
+            // 使用shouldComponentUpdate和PureComponent 避免过多render function
+
+            // react fiber是一种基于浏览器的单线程调度算法
+            // setState 只在合成事件和钩子函数中是异步的,在原生事件和setTimeout中是同步的
+            //  setState可以通过第二个参数callback拿到最新的值  合成事件和钩子函数 调用顺序在更新之前
+
+            // setState批量更新, 重复更新 只会保留最后一次更新的数据
+
+            // Redux工作流程
+                // 用户页面触发一个Action, Store调用Reducer, 传入两个参数(当前State和收到的Action)
+                // Reducer会返回最新的State View会根据State触发渲染
+                // react-redux 将state和action通过props的方式传入到原组件内部
+            
+            // react主张函数式编程,所以主推纯组件,数据不可变,单向数据流
+            // vue的思想是响应式的,也就是基于数据可变,通过对每一个属性建立watcher来监听 当属性变化的时候 响应式的更新
+            // 对应的虚拟DOM
+
+            // redux使用的是不可变数据, 而vuex的数据是可变的 redux每次都是用新的state替换旧的state
+            // vuex是直接修改
+
+            // XSS跨站脚本攻击: 攻击者在目标网站注入恶意代码,当被攻击者登录网站时就会执行恶意脚本 脚本可以读取cookie session tokens
+                // 存储型（存储在服务器中），反射型（不存储在服务器在客户端执行），基于DOM（不牵涉服务器）
+                // ①服务器对输入脚本进行过滤或者转码
+                // ②充分利用CSP
+                //     限制加载其他域名下的资源文件
+                //     禁止向第三方提交文件
+                //     禁止执行内联脚本和未授权脚本
+                //     提供上报机制及时发现问题
+                // ③使用httpOnly（cookie只能通过http获取）
+            // CSRF跨站请求伪造: 攻击者诱导受害者进入第三方网站(广告,邮件诱导)进入第三方网站 在第三方网站发送跨站请求，利用服务器的漏洞和用户的登陆状态来实施攻击
+                // 充分利用好cookie的samesite属性（strict（完全禁止），lax（相对宽松），none（完全不禁止））
+                // 验证请求的来源站点（避免是黑客的站点）refer/origin这两个属性
+                // CSRF Token 服务器通过token来验证请求站点的合法性
+            // DDOS: 大量的请求造成资源过载, 导致服务不可用
+                // 限制单个IP请求频率(github)
+
+            // loader处理文件的转换器
+                // file-loader处理图片和字体
+                // image-loader加载并且压缩图片文件
+                // babel-loader将ES6转换为ES5
+            // plugin本质是插件
+                // html-webpack-plugin
+                // uglifyjs-webpack-plugin压缩js文件
+                // clean-webpack-plugin目录清除
+            
+            // 服务端渲染：服务端返回HTML文件，客户端只需要解析HTML。首屏渲染快SEO好
+            // 配置麻烦，增加了服务器的压力
+
+            // ***https的过程
+            //     浏览器发送一个随机数1和支持的加密算法集合
+            //     服务器收到消息以后，选择一个加密算法和随机数2和数字证书返回给浏览器
+            //     浏览器验证证书的有效性（不是黑客，操作系统内置的CA证书与服务器发送的比对）根据双方约定的加密算法。计算出随机数1和随机数2加密生成对称加密的密钥。用证书上的公钥加密
+            //     服务器用私钥解密得到双方可以用对称加密的公钥
+
+            // V8是如何执行一段JavaScript代码
+                // 源代码经过词法分析和语法分析生成AST。AST经过解释器Iginition生成字节码ByteCode可以被解释器Ignition直接解释执行称为机器码
+                // Ignition在解释执行AST的时候如果发现某一段断码被反复执行。编译器TurboFan就会把该段热点字节码编译为执速度更快的机器码。
+
+            // constructor构造函数,最先被执行,通常在构造函数中初始化state,或者给自定义方法绑定this
+            // render函数是纯函数,只返回需要渲染的东西,不应该包含其它的业务逻辑,可以返回原生的DOM,react组件,fragment,字符串和数字,boolean
+            // componentDidMount组件装载之后调用,此时可以获取到DOM节点操作,网络请求,订阅都可以写在这里 componentWillUnmount中取消订阅
+            // shouldComponentUpdate(nextProps, nextState) 表示新的属性和新的state 返回一个布尔值 true渲染 false不触发渲染
+            // componentDidUpdate/componentWillUnmount
+
+            // 闭包就是读取其他函数内部变量的函数
+
+            // new Vue中对象是引用关系不会被复用。组件会被复用，所以data是一个函数
+            // keep-alive是内置组件用于缓存组件。可以使被包含的组件保留状态，避免重新渲染
+                // 提供include和exclude属性。include表示只有匹配到的组件会被缓存。exclude表示除了相应的组件都会缓存
+                // 组件激活时调用activted钩子函数，组件被移除时调用deactivated钩子函数
+            // vue-router导航钩子
+                // router.beforeEach(to, from, next) 跳转前进行拦截判断
+                // 组件内独享的钩子、路由独享的钩子
+            // Vuex
+                // state 使用单一状态树。存放的数据状态不可以直接修改里面的数据
+                // mutations 定义的方法动态修改Vuex的store中的状态数据 commit
+                // getters 类似Vue的计算属性。以state为数据源来过滤一些数据
+                // action 依赖mutations中的方法异步操作数据 dispatch
+            // Vue代码层面性能优化
+                //     区分场景使用v-if与v-show
+                //     区分场景使用watch与computed
+                //     v-for添加唯一性key
+                //     路由懒加载
+                //     按需引入插件
+                //     组件复用
+                //     事件销毁
+
+            // Set用于数组去重（成员不能重复，类似数组，可以遍历），Map用于数据存储（键值对的集合）
+
+            // 解决跨域的方法
+            //     JSONP
+            //     CORS跨域资源共享需要在服务器配置
+            //     服务器代理
+
+            // OSI七层模型：应用程，表示层，会话层，传输层，网络层，数据链路层，物理层
+            // TCP/IP模型：应用层，传输层，网络层，数据链路层
+
+            // https：安全传输，需要证书，效率低，端口是443，加密传输
+            // http：不安全，无需证书，效率高，端口是80，明文传输
+
+            // 箭头函数的this指向全局对象。箭头函数不能实例化没有this
+
+            // es6
+                // 解构赋值
+                // 箭头函数
+                // 模板字符串
+                // Set Map
+                // Promise
+                // let const 
+                // class
+                // 数组API
+            
+            // vue2和vue3的区别
+                // diff算法增加patchFlag静态标识,只对比有静态标识的dom元素,减少了不必要的对比
+                // proxy替换了之前的defineProperty 解决了无法监听数组的缺陷
+                // vite ts
+
+            // $nextTick dom更新之后的回调 可以用来获取更新后的dom元素
+
+            // SPA单页面应用程序的理解?优点和缺点
+                // SPA单页面应用程序仅在初始化的时候加载HTML,CSS,JavaScript文件资源 以后只根据路由来切换HTML内容不会因为用户的操作重新加载渲染
+                // 用户体验好,服务端压力下,操作都在前端进行,前后端分离,避免了不必要的跳转和重复渲染
+                // 数次加载时间过长,不能使用浏览器的前进后退功能必须依赖路由的前进后退,SEO差
+
+            // v-if是真正的条件渲染,它会根据条件来销毁或者重建组件
+            // v-show不管初始条件是什么,元素总是被渲染
+
+            // 怎样理解Vue的单向数据流
+                // 所有的prop都使得父子prop是一个单项向下流动的 父级prop的更新会流动到子组件,子组件自动响应数据,但是子组件不能修改数据
+                // 只能通过回调函数让父组件去修改数据
+            
+            // computed与watch的区别
+                // computed依赖其他值,只有依赖的值改变了才会重新计算 否则只会使用缓存的值
+                // watch更多的是观察的作用, 监视到值发生了改变旧会执行回调函数
+            
+            // Vue不能检测到数组的变化
+                // Vue.$set
+            
+            // Vue生命周期的理解: 开始创建,初始化数据,编译模板,挂载DOM,渲染更新,卸载组件等一系列过程
+
+            // 组件间传值
+            //     父子组件: props/$emit   ref
+            //     兄弟组件: Eventbus事件总线 也是使用$emit $on
+            //     Vuex
+
+            // MVVM
+                // View层
+                //     View是视图层,也就是用户界面层
+                // Model层
+                //     Model是数据层,在前端泛指后端的数据接口
+                // ViewModel层
+                //     ViewModel与View层进行数据绑定,与Model层进行数据交互,承上启下
+
+            // 优化从三个方面来讲: 网络层面, 渲染层面, 代码层面
+
+            // HTTP1.1与HTTP2.0的区别
+                // HTTP2采用二进制分帧, 多路复用(多个HTTP请求复用一个TCP), 首部压缩, 设置请求的优先级, 服务端推送
+                // HTTP1.1和HTTP2都是采用TCP 连接, 因此都存在阻塞的问题 这是因为TCP是可靠的传输 面向连接的
+            
+            // Promise.all作为接力赛跑,必须都成功才会resolve返回成功的结果(成功的时候返回一个数组)
+            // Promise.race作为短途赛跑,谁先成功就先返回谁的resolve结果
+
+
+            // 全局路由守卫: beforeEach 
+            // 组件内路由的钩子函数: beforeRouterEnter beforeRouterUpdate beforeRouterLeave
+            // 路由独享的守卫: beforeEnter
+
+            // 常见的设计模式(根据Vue框架)
+                // 工厂模式: 传入参数即可创建实例
+                // 单例模式: 整个程序有且仅有一个实例
+                // 发布订阅模式
+                // 观察者模式
+
+            // 行内元素居中一般方法：text-align: center
+            // 块级元素居中一般方法：margin: 0 auto
+            // flex布局（块级和行级）：justify-content: center, align-items: center
+            // 绝对定位：postion: absolue; left: 50%; top: 50%; transform: translate(-50%, -50%)
+            // 绝对定位：position: absolue; left: 0; right: 0; margin: 0 auto；
+
+            // 为什么将JS设计成单线程？
+                // JS设计成单线程是因为。JS会操作DOM。多线程会造成操作DOM的紊乱
+            // 为什么会有同步任务和异步任务？
+                // 因为JS必须是单线程。所以必须设计同步任务和异步任务。因为有些任务耗时很久
+                // 会造成线程阻塞。为了更高效率的执行任务
+            
+            function Persons(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            const ps = new Persons('hcc', 25);
+            console.log(ps);
+            console.log(ps.__proto__ === Persons.prototype);
+            console.log(ps.__proto__.constructor === Persons);
+            console.log(Persons.prototype.__proto__ === Object.prototype);
+            console.log(Persons.prototype.__proto__.constructor === Object);
+            console.log(Object.prototype === ps.__proto__.__proto__);
+            console.log(Persons.prototype.__proto__.__proto__);
+
+            // 整体的script作为第一个宏任务执行的时候，会把代码分为同步代码和异步代码
+            // 异步代码又会被分为宏任务与微任务
+            // 同步任务会直接进入主线程依次执行。
+
+            // 查找缓存。查找强缓存，再发送协商缓存304
+            // DNS解析将域名解析为IP。先从本地缓存查找，DNS递归到权威域名服务器
+            // 三次握手建立TCP连接
+            // 发送HTTP请求
+            // 服务器返回HTTP报文
+            // 浏览器解析渲染页面
+            //     HTML解析器解析HTML文件为DOM树
+            //     CSS解析器解析CSS文件为CSSOM树
+            //     构建渲染树
+            //     布局 根据解析的CSSOM 计算每个节点具体的位置和大小
+            //     分层 CSS中一些样式需要独立成为一个图层 absolute fixed opacity z-index ...
+            //         我的理解浏览器分层是根据文档流垂直方向上竖坐标
+            //     绘制 为每一个图层生成一个绘制列表 后面可以更高效率的绘制各个图层
+            //     合成显示 页面
+            // TCP四次挥手
+
+            // get在浏览器回退时是无害的，post会重新向服务器发送请求
+            // get的请求记录会被浏览器缓存，post不会
+            // get的请求参数暴露再地址栏中不安全，post请求参数在body体中相对安全
+            // get请求参数有长度限制，post没有限制
+            // get请求只能进行url编码，post没有限制
+            // get请求只会产生一个TCP数据包，post请求会产生两个请求数据包
+
+            // SPA单页面应用程序仅在初始化时加载相应的HTML， CSS，JavaScript文件。一旦页面
+            // 加载完成。无论用户如何操作都不会进行页面的重新加载和跳转而是通过路由机制来实现HTML内容的变换
+            // 用户体验好，速度快，没有繁琐的页面跳转，前后端分离便于代码的维护，服务端压力小
+            // 首次加载时间长，SEO效果差，不能使用浏览器的前进后退功能，只能使用路由的跳转
+
+            // v-if是真正意义上的条件渲染，v-if控制元素的创建与销毁
+            // v-show不是真正意义上的条件渲染只是通过CSS来控制元素的隐藏与显示
+            // v-if适用于很少改变条件的场景中减少性能的损耗。v-show适用于经常改变条件的场景中
+
+            // 怎样理解Vue单项数据流？
+                // 所有的prop都是父子组件之间单项向下的数据流，父组件向子组件分发数据，子组件可以使用
+                // 但是不能修改，如果向修改数据必须向父组件申请（通过回调函数）父组件来修改同时更新数据
+                // 子组件也会随着父组件一起更新
+
+            // watch和computed的区别？
+                // computed是计算属性，依赖其它数据，只有当依赖的数据改变了才会重新计算。否则将复用缓存的数据
+                // watch更多的是监视的作用，每当监听到数据的变化就会执行对应的回调函数
+
+            // 谈谈你对Vue生命周期的理解？
+                // Vue有一个完成的生命周期包括开始创建，初始化数据，编译模板，挂载DOM，渲染，更新渲染，组件销毁
+
+            // keep-alive的理解？
+                // keep-alive是一个内置组件，用来缓存被包含的组件避免重新渲染
+                // include和exclude两个属性
+                // activated和deactivated两个钩子函数
+            
+            // 组件中的data是一个函数，初始化的data是一个对象？
+                // 组件可能被复用，所以为了避免data中属性值的相互影响。使用函数隔离起来
+
+            // v-model的实现原理？
+            // 基于表单元素的@input @change 事件回调函数的参数值 
+
+            // Vue组件间通信方式？
+                // 父子组件：props $emit 回调函数
+                // 兄弟组件：eventbus $emit $on
+                // 全局状态分发：Vuex
+            
+            // Vuex？
+                // state全局store
+                // mutation用于修改state中的数据commit操作
+                // action显示提交mutation中的方法dispatch异步修改state中的数据
+                // getter计算属性，用来过滤state中的一些数据
+                // module允许将单一的store拆分成多个store且保存在同一个状态树中
+            
+            // vue-router路由模式有几种？
+                //     hash模式：使用URL hash值来作为路由，#后面的值就是哈希值。hashchange监听
+                //     history模式：依赖HTML5 history API pushState replaceState需要服务端配置
+
+            // 什么是MVVM？
+                // MVVM是基于后端MVC（Model, View，Controller）的思想
+                // Model层：数据层在前端主要是指数据接口API。与后端进行的各种数据交换和逻辑处理
+                // View层：展示数据的用户界面。与VM层进行数据双向绑定
+                // ViewModel：视图数据层作为数据层与视图层之间的桥梁。与Model做数据交互。View操作界面通过VM传递给Model
+            
+            // Proxy与Object.defineProperty
+                // Proxy是ES6新特性。拦截整个对象而不是对象的单个属性。Object.defineProperty是对象的属性
+                // Proxy可以直接监听数组的变化，Object.defineProperty无法监听到数组的变化（Vue.$set）
+
+            // 虚拟DOM的实现原理？
+                // 虚拟DOM实际上是通过JavaScript模拟真实DOM树，对真实DOM的抽象
+                // diff算法通过比较两颗虚拟DOM树来计算出最小的差异
+                // patch算法将对比前后的DOM树差异应用到真实的DOM树中
+            
+            // Vue中key的作用？
+                // vue在进行新树与旧树对比的时候，通过节点的key来判断是否是相同的节点。
+                // 相同节点就跳过当前节点的对比。如果没有key。diff算法需要对比每一层树每一个节点
+            
+            // createElement 
+            // createTextNode
+            // setAttribute
+            // removeAttribute
+            // createDocumentFragment
+            // insertBefore
+            // appendChild
+
+            // 当我们访问一个对象的属性的时候，会先在对象自身上查找属性，如果没有就会去对象的原型对象prototype上查找
+            // 如果有就返回，如果没有就继续查找一直查找到Object.prototype为止。返回null 每个对象实例都能
+            // 使用toString这个方法就是沿着原型链查找Object.prototype   
+            
+            // EventLoop
+                // js是单线程，为了防止一个函数执行时间过长阻塞后面的代码，所以将同步代码直接压入执行栈
+                // 等待主线程执行，将异步代码推入任务队列，异步代码分为宏任务和微任务。一个宏任务都有一个微任务队列
+                // 由于宏任务队列执行时间过长（银行柜台示例）所以微任务先执行，再去检查宏任务队列
+            
+            // Vue的修饰符有哪些？
+            // .stop .prevent .once
+            
+            
+            // hash模式兼容性好不美观不利于SEO hash改变会触发hashchange这个方法
+            // history兼容性不好，美观需要服务端配置。以来html5 history api pushState replaceState
+
+            // Vue中的设计模式？
+            //     工厂模式：传入参数可以创建实例（虚拟节点的创建）
+            //     单例模式：new 多次只有一个实例
+            //     发布订阅模式：eventBus
+            //     装饰器模式：插槽，扩展子组件
+
+            // Vue响应式
+                // 每个data中的属性都有一个dep来存放它的依赖watcher，当属性变化后会通知自己对应的watcher去更新
+            
+            // EventLoop事件循环，是指浏览器或者Node的一种解决JavaScript单线程运行时不会阻塞的一种机制
+
+            // ToPrimitive 原始？valueOf : toString
+
+            // setState是同步还是异步？
+            //     在react能够控制的范围被调用就是异步的。合成事件处理函数，生命周期函数
+            //     在JavaScript能够控制的范围被调用就是同步到。setTimeout 原生事件处理函数，
+
     </script>
 </body>
 </html>
