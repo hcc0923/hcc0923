@@ -280,6 +280,34 @@
             }
         }
 
+        function Parent(name) {
+            this.name = name;
+            this.say = () => {
+                console.log('Parent Say');
+            };
+        }
+        Parent.prototype.play = () => {
+            console.log('Parent Play');
+        }
+        function Children(name) {
+            // Parent.call(this);
+            this.name = name;
+        }
+        Children.prototype = Object.create(Parent.prototype);
+        Children.prototype.constructor = Children;
+        let child = new Children('child');
+        console.log(child);
+
+        function myNew(fn, ...args) {
+            let obj = Object.create(fn.prototype);
+            let res = fn.call(obj, ...args);
+            if (typeof res === 'function' || typeof res === 'object') {
+                return res;
+            }
+            return obj;
+        }
+
+
         const sortArr = [5, 4, 3, 2, 1];
         function bubbleSort(array) {
             const length = array.length;
