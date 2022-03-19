@@ -330,15 +330,16 @@
         console.log('insertSort is', insertSort(sortArr));
 
         function quickSort(array) {
-            if(array.length < 2) return array;
+            const length = array.length;
+            if (length < 2) return array;
             const middle = array[0];
             const left = [];
             const right = [];
-            for (let index = 1; index < array.length; index++) {
+            for (let index = 1; index < length; index++) {
                 if (array[index] < middle) {
                     left.push(array[index]);
                 } else {
-                    right.push(array[index])
+                    right.push(array[index]);
                 }
             }
             return quickSort(left).concat([middle], quickSort(right));
