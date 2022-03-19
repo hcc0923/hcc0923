@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function add(a, b, c) {
+            return a + b + c;
+        }
+        function Curry(fn, ...args) {
+            console.log('args' + args);
+            if (fn.length > args.length) {
+                
+                return (...newArgs) => Curry(fn, ...args, ...newArgs);
+            } else {
+                return fn(...args);
+            }
+        }
+        console.log(Curry(add)(1)(2)(3));
+
+        function myInstanceOf(left, right) {
+            let prototype = Object.getPrototypeOf(left);
+            while (left) {
+                if (prototype === null) {
+                    return false;
+                } 
+                if (prototype === right.prototype) {
+                    return true;
+                }
+                prototype = Object.getPrototypeOf(prototype);
+            }
+        }
+        function Person(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        const p = new Person('hcc', 25);
+        console.log(myInstanceOf(p, Array));
+
+        function AJAX(method, url, data) {
+            return new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = () => {
+                    if (xhr.readyState !== 4) return;
+                    if (xhr.status === 200) {
+                        resolve(xhr.responseText);
+                    } else {
+                        reject(new Error(xhr.responseText));
+                    }
+                }
+                xhr.open(method, url, true);
+                xhr.send(data);
+            })
+        }
+
+        const cloneObject = {
+            name: 'hcc',
+            other: {
+                age: 25,
+                other: {
+                    gender: 'male',
+                    other: {
+                        date: new Date()
+                    }
+                }
+            }
+        };
+        function shallowClone(object) {
+            const result = {};
+            for (const key in object) {
+                result[key] = object[key];
+            }
+            return result;
+        }
+
+        function deepClone(object, hash = new WeakMap()) {
+            if (object === null || typeof object !== 'object') {
+                return object;
+            }
+            if (object instanceof Date) {
+                return Date(object);
+            }
+            if (object instanceof RegExp) {
+                return RegExp(object);
+            }
+            if (hash.has(object)) {
+                return object;
+            }
+            const result = new object.constructor();
+            hash.set(object, result);
+            for (const key in object) {
+                if (object.hasOwnProperty(key)) {
+                    result[key] = deepClone(object[key], hash);
+                }
+            }
+            return result;
+        }
+
+        console.log(deepClone(cloneObject));
+        console.log(shallowClone(cloneObject));
+
+        function changeThis(...args) {
+            console.log(args);
+        }
+        Function.prototype.myCall = function (context, ...args) {
+            context = Object(context) || window;
+            const fn = Symbol('fn');
+            context[fn] = this;
+            const result = context[fn](...args);
+            delete context[fn];
+            return result;
+        }
+        Function.prototype.myApply = function (context, args) {
+            context = Object(context) || window;
+            const fn = Symbol('fn');
+            context[fn] = this;
+            const result = context[fn](...args);
+            delete context[fn];
+            return result;
+        }
+        Function.prototype.myBind = function (context, ...args) {
+            return (...newArgs) => {
+                return this.call(context, ...args, ...newArgs);
+            }
+        }
+        changeThis.myCall(window,1, 2, 3);
+        changeThis.myApply(window,[1, 2, 3]);
+        changeThis.myBind(window,1, 2 , 3)(4, 5, 6);
+
+        
+        const arrayObject = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+        Array.prototype.myIsArray = array => Object.prototype.toString.call(array) === '[object Array]';
+        Array.prototype.myForEach = function (callback) {
+            const isArray = Object.prototype.toString.call(this) === '[object Array]';
+            if (!isArray) {
+                throw new TypeError(`${this}.myForEach is not a function`);
+            }
+            for (let index = 0; index < this.length; index++) {
+                callback(this[index], index, this);                
+            }
+        }
+       
+        Array.prototype.myMap = function(callback) {
+            const isArray = Object.prototype.toString.call(this) === '[object Array]';
+            if (!isArray) {
+                throw new TypeError(`${this}.myMap is not a function`);
+            }
+            const newArray = [];
+            for (let index = 0; index < this.length; index++) {
+                newArray.push(callback(this[index], index, this));
+            }
+            return newArray;
+        }
+        
+        Array.prototype.myFind = function(callback) {
+            const isArray = Object.prototype.toString.call(this) === '[object Array]';
+            if (!isArray) {
+                throw new TypeError(`${this}.myFind is not a function`);
+            }
+            for (let index = 0; index < this.length; index++) {
+                if (callback(this[index], index, this)) {
+                    return this[index];
+                }
+            }
+        }
+        
+        Array.prototype.myFilter = function(callback) {
+            const isArray = Object.prototype.toString.call(this) === '[object Array]';
+            if (!isArray) {
+                throw new TypeError(`${this}.myFilter is not a function`);
+            }
+            const newArray = [];
+            for (let index = 0; index < this.length; index++) {
+                if (callback(this[index], index, this)) {
+                    newArray.push(this[index]);
+                }
+            }
+            return newArray;
+        }
+       
+        Array.prototype.mySome = function (callback) {
+            const isArray = Object.prototype.toString.call(this) === '[object Array]';
+            if (!isArray) {
+                throw new TypeError(`${this}.mySome is not a function`);
+            }
+            for (let index = 0; index < this.length; index++) {
+                if (callback(this[index], index, this)) {
+                    return true;
+                }
+            }
+            return false;
+        }
+        
+        Array.prototype.myEvery = function(callback) {
+            const isArray = Object.prototype.toString.call(this) === '[object Array]';
+            if (!isArray) {
+                throw new TypeError(`${this}.myEvery is not a function`);
+            }
+            for (let index = 0; index < this.length; index++) {
+                if (!callback(this[index], index, this)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        Array.prototype.myReduce = function(callback, initValue) {
+            const isArray = Object.prototype.toString.call(this) === '[object Array]';
+            if (!isArray) {
+                throw new TypeError(`${this}.myReduce is not a function`);
+            }
+            for (let index = 0; index < this.length; index++) {
+                if (initValue === undefined) {
+                    initValue = this[index];
+                } else {
+                    initValue = callback(initValue, this[index], index, this);
+                }
+            }
+            return initValue;
+        }
+        // const resultArray = arrayObject.myReduce((sum, item, index, array) => {
+        //     sum += item;
+        //     return sum;
+        // }, 0);
+        // console.log(resultArray);
+
+        const uniqueArr = [7, 4, 1 ,7, 1, 4];
+        function uniqueArray(array) {
+            const result = {};
+            return array.filter(element => {
+                return result.hasOwnProperty(typeof element + element) ? false : (result[typeof element + element] = true);
+            });
+            return result;
+        }
+        function uniqueArrays(array) {
+            return array.filter((item, index, array) => {
+                return array.indexOf(item) === index;
+            });
+        }
+        console.log(uniqueArrays(uniqueArr));
+        console.log([...new Set(uniqueArr)]);
+
+        const flatArr = [1, [2, 3, [4, 5, 6]]];
+        function flatArray(array) {
+            let result = [];
+            for (let index = 0; index < array.length; index++) {
+                if (Array.isArray(array[index])) {
+                    result = result.concat(flatArray(array[index]));
+                } else {
+                    result.push(array[index]);
+                }
+            }
+            return result;
+        }
+        console.log(flatArr.flat(2));
+        console.log(flatArray(flatArr));
+
+        function debounce(fn, delay) {
+            let timer;
+            return function() {
+                clearTimeout(timer);
+                timer = setTimeout(() => {
+                    fn.call(this, arguments)
+                }, delay);
+            }
+        }
+
+        function throttle(fn, delay) {
+            let previous = 0;
+            return function() {
+                let now = Date.now();
+                if (now - previous > delay) {
+                    fn.call(this, arguments);
+                    previous = now;
+                }
+            }
+        }
+    </script>
+</body>
+</html>
