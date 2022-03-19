@@ -279,6 +279,71 @@
                 }
             }
         }
+
+        const sortArr = [5, 4, 3, 2, 1];
+        function bubbleSort(array) {
+            const length = array.length;
+            for (let i = 0; i <length; i++) {
+                let flag = false;
+                for (let j = 0; j < length - i - 1; j++) {
+                    [array[j], array[j + 1]] = [array[j + 1], array[j]];
+                    flag = true;
+                }
+                if (!flag) {
+                    return array; // 已经是有序的
+                }
+            }
+            return array;
+        }
+        console.log('bubbleSort is', bubbleSort(sortArr));
+
+        function selectSort(array) {
+            let minIndex;
+            const length = array.length;
+            for (let i = 0; i < length - 1; i++) {
+                minIndex = i; // 假设第一个元素是最小值
+                for (let j = i + 1; j < length; j++) {
+                    if (array[i] > array[j]) {
+                        minIndex = j; // 寻找最小的数
+                    }
+                }
+                [array[minIndex], array[i]] = [array[i], array[minIndex]];
+            }
+            return array;
+        }
+        console.log('selectSort is', selectSort(sortArr));
+
+        function insertSort(array) {
+            const length = array.length;
+            let current;
+            for (let i = 0; i < length; i++) {
+                let j = i;
+                current = array[i];
+                while (j > 0 && array[j-1] > current) {
+                    array[j] = array[j-1];
+                    j--;
+                };       
+                array[j] = current;
+            };
+            return array;
+        }
+        console.log('insertSort is', insertSort(sortArr));
+
+        function quickSort(array) {
+            if(array.length < 2) return array;
+            const middle = array[0];
+            const left = [];
+            const right = [];
+            for (let index = 1; index < array.length; index++) {
+                if (array[index] < middle) {
+                    left.push(array[index]);
+                } else {
+                    right.push(array[index])
+                }
+            }
+            return quickSort(left).concat([middle], quickSort(right));
+        }
+        console.log('quickSort is', quickSort(sortArr));
     </script>
 </body>
 </html>
