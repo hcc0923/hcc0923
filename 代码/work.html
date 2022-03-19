@@ -12,11 +12,11 @@
             return a + b + c;
         }
         function Curry(fn, ...args) {
-            console.log('args' + args);
+            console.log(args);
             if (fn.length > args.length) {
-                
                 return (...newArgs) => Curry(fn, ...args, ...newArgs);
             } else {
+                console.log('Parent');
                 return fn(...args);
             }
         }
@@ -92,6 +92,7 @@
             }
             const result = new object.constructor();
             hash.set(object, result);
+            console.log(hash);
             for (const key in object) {
                 if (object.hasOwnProperty(key)) {
                     result[key] = deepClone(object[key], hash);
@@ -110,7 +111,7 @@
             context = Object(context) || window;
             const fn = Symbol('fn');
             context[fn] = this;
-            const result = context[fn](...args);
+            const result = context[fn](...args); // 改变this并执行函数
             delete context[fn];
             return result;
         }
@@ -151,7 +152,7 @@
             }
             const newArray = [];
             for (let index = 0; index < this.length; index++) {
-                newArray.push(callback(this[index], index, this));
+                newArray.push(callback(this[index], index, this)); // callback处理后包装给新数组
             }
             return newArray;
         }
@@ -166,6 +167,7 @@
                     return this[index];
                 }
             }
+            return undefined;
         }
         
         Array.prototype.myFilter = function(callback) {
