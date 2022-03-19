@@ -29,24 +29,6 @@
         };
         console.log(bubbleSort(array)); 
         /* 
-            插入排序
-        */
-        const insertSort = (array) => {
-            const length = array.length;
-            let current;
-            for (let i = 1; i < length; i++) { // 待排序的区间
-                let j = i; // j用于帮助current寻找自己应有的定位
-                current = array[i];
-                while (j > 0 && array[j-1] > current) {
-                    array[j] = array[j-1];
-                    j--;
-                };       
-                array[j] = current;
-            };
-            return array;
-        };
-        console.log(insertSort(array)); 
-        /* 
             选择排序
         */
         const selectSort = (array) => {
@@ -67,36 +49,23 @@
         }
         console.log(selectSort(array)); 
         /* 
-            归并排序
+            插入排序
         */
-        const mergeSort = (array) => {
-            if (array.length < 2) {
-                return array;
-            }
-            const middle = Math.floor((array.length / 2));
-            const left = array.slice(0, middle);
-            const right = array.slice(middle);
-            return merge(mergeSort(left), mergeSort(right));
-
-            function merge(left, right) {
-                const temp = []; // 归并排序不是原地排序算法
-                if (left.length && right.length) {
-                    while (left[0] < right[0]) {
-                        temp.push(left.shift());
-                    }
-                } else {
-                    temp.push(left.shift());
-                }
-                while (left.length) {
-                    temp.push(left.shift());
-                }
-                while (right.length) {
-                    temp.push(right.shift());
-                }
-                return temp;
-            }
-        }
-        console.log(mergeSort(array));
+        const insertSort = (array) => {
+            const length = array.length;
+            let current;
+            for (let i = 1; i < length; i++) { // 待排序的区间
+                let j = i; // j用于帮助current寻找自己应有的定位
+                current = array[i];
+                while (j > 0 && array[j-1] > current) {
+                    array[j] = array[j-1];
+                    j--;
+                };       
+                array[j] = current;
+            };
+            return array;
+        };
+        console.log(insertSort(array)); 
         /* 
             快速排序
         */
@@ -118,3 +87,5 @@
     </script>
 </body>
 </html>
+
+
