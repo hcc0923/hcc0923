@@ -34,115 +34,20 @@
         </div>
     </div>
     <script>
-        function F() {
-            let test = new Array(1000);
-            return function S() {
-                console.log(test);
-                return test;
-            }
-        }
-        
-        let Fn = F();
-        Fn();
-
-        let info = { id: 1 };
-        let user = { info };
-        let set = new WeakSet([info]);
-        let map = new Map([[info, 'hahah']]);
-
-        info = null;
-
-        console.log(user.info);
-        console.log(set);
-        console.log(map);
-
-
-        console.log(typeof undefined);
-        console.log(typeof null);
-        console.log(Symbol() == Symbol());
-        console.log(typeof Symbol());
-
-
-        let objtest = {
+        const cloneObject = {
             name: 'hcc',
-            "age": 25,
-            25: true
-        }
-        console.log(objtest);
-
-
-        let obj1 = {};
-        obj2 = obj1;
-        obj2.name = 'xxx';
-        console.log(obj2, obj1);
-
-        console.log('-------------------------浅拷贝-----------');
-
-        function shallowClone(obj) {
-            const newObj = {};
-            for (let key in obj) {
-                if (obj.hasOwnProperty.call(obj, key)) {
-                    newObj[key] = obj[key];
+            age: 25,
+            time: {
+                date: new Date(),
+                reg: {
+                    regexp: new RegExp(),
+                    root: {
+                        rot: null
+                    }
                 }
             }
-            return newObj;
-        }
-        console.log(Object.assign({}, objtest));
-        console.log(shallowClone(objtest));
-
-        console.log('----------------------------数组浅拷贝----------------');
-        const cloneArray = [1, 2, 3];
-        console.log(cloneArray.slice(0,3));
-
-        const flatArray = [1, [2, [3]]];
-        console.log(flatArray.flat(2));
-
-        console.log('------------------填充数组------------');
-        let fillArray = [1, 2, 3, 4, 5];
-        console.log(fillArray.fill(6, 1, 2));
-
-        console.log('------------------reduce-----------------');
-        const reduceArray = [1, 2, 3, 4, 5];
-        let reduceResult = reduceArray.reduce((sum, cur) => sum + cur );
-        console.log(reduceResult);
-
-        console.log('-----------------splice-------------');
-        const spliceArray = [1, 2, 3, 4, 5];
-        spliceArray.splice(2, 1, '三');
-        console.log(spliceArray);
+        }   
         
-        console.log('-------------------deepClone------------------');
-        const deepCloneObj = {
-            name: 'hcc',
-            hobby: {
-                music: true,
-                girl: true,
-                eat: 'chicken'
-            },
-            money: 50
-        };
-        const newDeepCloneObj = JSON.parse(JSON.stringify(deepCloneObj));
-        console.log(newDeepCloneObj);
-
-
-        const shallowCloneObj = Object.assign({}, deepCloneObj);
-        deepCloneObj.hobby.eat = 'fish';
-        
-        console.log('shallowCloneObj is', shallowCloneObj);
-        console.log(newDeepCloneObj, deepCloneObj);
-
-
-        const creDiv = document.createElement('div');
-        const txtNode = document.createTextNode("创建文本节点");
-        creDiv.innerHTML = `<span style="color: red">` + txtNode + `</span>`
-        
-        const fragment = document.createDocumentFragment();
-
-        fragment.append(creDiv);
-
-        document.querySelector('.div3').appendChild(fragment);
-
-
         console.log('----------------------宏任务与微任务---------------');
         // setTimeout(_ => console.log(4))
 

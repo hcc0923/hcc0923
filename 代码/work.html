@@ -78,21 +78,20 @@
         }
 
         function deepClone(object, hash = new WeakMap()) {
-            if (object === null || typeof object !== 'object') {
+            if (object === null || typeof object !== 'object') { // 如果是null/undefined  或者是原始值
                 return object;
             }
             if (object instanceof Date) {
-                return Date(object);
+                return new Date(object);
             }
             if (object instanceof RegExp) {
-                return RegExp(object);
+                return new RegExp(object);
             }
-            if (hash.has(object)) {
+            if (hash.has(object)) { // 循环引用 hash.object = hash
                 return object;
             }
             const result = new object.constructor();
-            hash.set(object, result);
-            console.log(hash);
+            hash.set(object, result); // 
             for (const key in object) {
                 if (object.hasOwnProperty(key)) {
                     result[key] = deepClone(object[key], hash);
@@ -249,7 +248,7 @@
         const flatArr = [1, [2, 3, [4, 5, 6]]];
         function flatArray(array) {
             let result = [];
-            for (let index = 0; index < array.length; index++) {
+            for (let index = 0; index < array.length; index++) { // 遍历元素如果是数组就concat递归，否则就push
                 if (Array.isArray(array[index])) {
                     result = result.concat(flatArray(array[index]));
                 } else {
