@@ -5,66 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <style>
-        .div1 {
-            width: 300px;
-            height: 300px;
-            background-color: pink;
-        }
-
-        .div2 {
-            width: 200px;
-            height: 200px;
-            background-color: red;
-        }
-
-        .div3 {
-            width: 100px;
-            height: 100px;
-            background-color: green;
-        }
-    </style>
 </head>
 <body>
-    <div class="div1">
-        <div class="div2">
-            <div class="div3">
-
-            </div>
-        </div>
-    </div>
     <script>
-        const cloneObject = {
-            name: 'hcc',
-            age: 25,
-            time: {
-                date: new Date(),
-                reg: {
-                    regexp: new RegExp(),
-                    root: {
-                        rot: null
-                    }
-                }
-            }
-        }   
-        
-        console.log('----------------------宏任务与微任务---------------');
-        // setTimeout(_ => console.log(4))
-
-        // async function main() {
-        //     console.log(1)
-        //     await Promise.resolve()
-        //     console.log(3)
-        // }
-
-        // main()
-
-        // console.log(2)
-        // async函数在await之前的代码都是同步执行的，可以理解为await之前的代码属于new Promise时
-        // 传入的代码，await之后的所有的代码都在Promise.then中的回调
-
-
-
         // console.log('script start')
 
         // async function async1() {
@@ -95,6 +38,8 @@
 
 
 
+         // async函数在await之前的代码都是同步执行的，可以理解为await之前的代码属于new Promise时
+        // 传入的代码，await之后的所有的代码都在Promise.then中的回调
 
         // 执行栈在执行完同步任务后，查看执行栈是否为空，如果为空就去检查微任务队列是否为空
         // 如果为空就去执行宏任务队列否则就一次性执行完所有微任务。
@@ -140,34 +85,6 @@
                 // 关键字节：实现网页首次渲染所需的总字节数，等同于所有关键资源传送文件大小的总和
             console.log('---------------this call apply bind---------------');
 
-            // 改变this指向的方法
-                // 使用箭头函数
-                // 用变量保存调用对象再在函数内部使用
-                // call apply bind
-            // ES5中this永远指向最后调用它的那个对象。ES6中的箭头函数的this永远指向函数定义时的this而非执行
-            // 箭头函数中没有this绑定，必须通过查找作用域链来决定其值。
-            var a = {
-                name : "Cherry",
-                fn: function(a, b) {
-                    console.log(a + b);
-                }
-            };
-            var callFn = a.fn;
-            callFn.call(a, 1, 2);
-            callFn.apply(a, [1, 2]);
-            callFn.bind(a, 1, 2)();
-
-            console.log('--------------------原型链------------------');
-
-            function prototypeFn(name) {
-                this.name = name;
-            }
-            var perObj = new prototypeFn('hcc');
-            console.log(perObj.constructor);
-            console.log(prototypeFn.prototype.constructor);
-            console.log(perObj.__proto__ == prototypeFn.prototype);
-
-            console.log('数组常见的一些操作');
             const flatArr = [1, [2,[3, [4]]]];
             console.log(flatArr.toString());
             console.log(flatArr.flat(Infinity));
