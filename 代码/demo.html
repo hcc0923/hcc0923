@@ -758,10 +758,65 @@
             }
             // 组合继承
 
-            function bubbleSort(array) {} 
-            function selectSort(array) {} 
-            function insertSort(array) {} 
-            function quickSort(array) {} 
+            const sortArr = [5, 4, 3, 2, 1];
+            function bubbleSort(array) {
+                const length = array.length;
+                for (let i = 0; i < length; i++) {
+                    let flag = false;
+                    for (let j = 0; j < length - i - 1; j++) {
+                        [array[j], array[j + 1]] = [array[j + 1], array[j]]
+                        flag = true;
+                    }
+                    if (!flag) {
+                        return array;
+                    }
+                }
+            } 
+            console.log(bubbleSort(sortArr));
+            function selectSort(array) {
+                let minIndex;
+                const length = array.length;
+                for (let i = 0; i < length - 1; i++) {
+                    minIndex = i;
+                    for (let j = i + 1; j < length; j++) {
+                        if (array[j] < array[i]) {
+                            minIndex = j;
+                        }
+                    }
+                    [array[minIndex], array[i]] = [array[i], array[minIndex]];
+                }
+                return array;
+            } 
+            console.log(selectSort(sortArr));
+            function insertSort(array) {
+                const length = array.length;
+                for (let i = 0; i < length - 1; i++) {
+                    for (let j = 0 + 1; j < length; j++) {
+                        if (array[j] < array[i]) {
+                            [array[j - 1], array[j]] = [array[j], array[j - 1]]
+                        } else {
+                            break;
+                        }
+                    }
+                }
+            } 
+            console.log(selectSort(sortArr));
+            function quickSort(array) {
+                const length = array.length
+                if (length < 2) return array;
+                const middle = array[0];
+                const left = [];
+                const right = [];
+                for (let index = 1; index < length; index++) {
+                    if (array[index] < middle) {
+                        left.push(array[index]);
+                    } else {
+                        right.push(array[index]);
+                    }
+                }
+                return quickSort(left).concat([middle], quickSort(right));
+            } 
+            console.log(quickSort(sortArr));
     </script>
 </body>
 </html>
