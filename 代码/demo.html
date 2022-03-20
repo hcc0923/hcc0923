@@ -83,34 +83,7 @@
                 // 关键资源的数量：可能阻止网页首次渲染的资源   
                 // 关键路径长度：获取所有关键资源所需的往返总时间
                 // 关键字节：实现网页首次渲染所需的总字节数，等同于所有关键资源传送文件大小的总和
-            console.log('---------------this call apply bind---------------');
-
-            const flatArr = [1, [2,[3, [4]]]];
-            console.log(flatArr.toString());
-            console.log(flatArr.flat(Infinity));
-
-            const distinctArr = [1, 2, 1, 3, 4, 2, 5];
-            console.log(Array.from(new Set(distinctArr)));
-            console.log([...new Set(distinctArr)]);
-
-            let arr1 = [1, 2, 3];
-            let arr2 = [3, 4, 5];
-            console.log(arr1.concat(arr2));
-
-            console.log(arr2.includes(3));
-            console.log(arr2.indexOf(3));
-            console.log( arr2.find(item => item === 3));
-
-            console.log(arr2.every(item => item > 2));
-            console.log(arr2.some(item => item > 2));
-            console.log(arr2.filter(item => item > 2));
-            const objToArr = {
-                name: '张三',
-                age: 25,
-                gender: 0
-            }
-            console.log(Object.keys(objToArr));
-            console.log(Object.values(objToArr));
+            
             console.log('-----------------http与https------------');
             // HTTP的优缺点
                 // 优点
@@ -710,6 +683,85 @@
             //     在react能够控制的范围被调用就是异步的。合成事件处理函数，生命周期函数
             //     在JavaScript能够控制的范围被调用就是同步到。setTimeout 原生事件处理函数，
 
+
+            function myInstanceOf(left, right) {
+                let prototype = Object.getPrototypeOf(left);
+                while (left) {
+                    if (prototype === null) {
+                        return left;
+                    }
+                    if (prototype === right.prototype) {
+                        return true;
+                    }
+                    prototype = Object.getPrototypeOf(prototype);
+                }
+                
+            }
+
+            function AJAX(method, url, data) {
+                return new Promise((resolve, reject) => {
+                    const xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = () => {
+                        if (xhr.readyState !== 4) {
+                            return;
+                        }
+                        if (xhr.status === 200) {
+                            resolve(xhr.responseText)
+                        } else {
+                            reject(new Error(xhr.responseText))
+                        }
+                    }
+                    xhr.open(method, url, true);
+                    xhr.send(data);
+                })
+            }
+
+
+            function AJAX(method, url, data) {
+                return new Promise((resolve, reject) => {
+                    const xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = () => {
+                        if (xhr.readyState !== 4) return;
+                        if (xhr.status === 200) {
+                            resolve(xhr.responseText);
+                        } else {
+                            reject(new Error(xhr.responseText))
+                        }
+                    }
+                    xhr.open(method, url, true);
+                    xhr.send(data);
+                })
+            }
+            function debounce(fn, delay) {
+                let timer;
+                return function() {
+                    clearTimeout(timer);
+                    timer = setTimeout(() => {
+                        fn.call(this, arguments);
+                    }, delay);
+                }
+            }
+            function throttle(fn, delay) {
+                let previous = 0;
+                return function() {
+                    let now = Date.now();
+                    if (now - previous > delay) {
+                        fn.call(this, arguments);
+                        previous = now;
+                    }
+                }
+            }
+            function myNew(fn, ...args) {
+                const obj = Object.create(fn.prototype);
+                const result = fn.call(obj, ...args);
+                return result instanceof Object ? result : obj;
+            }
+            // 组合继承
+
+            function bubbleSort(array) {} 
+            function selectSort(array) {} 
+            function insertSort(array) {} 
+            function quickSort(array) {} 
     </script>
 </body>
 </html>

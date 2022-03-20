@@ -302,11 +302,20 @@
         function myNew(fn, ...args) {
             let obj = Object.create(fn.prototype);
             let res = fn.call(obj, ...args);
-            if (typeof res === 'function' || typeof res === 'object') {
-                return res;
-            }
-            return obj;
+            return res instanceof Object ? res : obj; // 如果为对象就返回res否则直接返回原始值
         }
+
+        function TestNew(name, age) {
+            this.name = name;
+            this.age = age;
+        }
+        TestNew.prototype.Say = function() {
+            console.log('TestNew Say');
+        }
+
+        const newResult = myNew(TestNew, 'hcc', 25);
+        console.log(newResult);
+
 
 
         const sortArr = [5, 4, 3, 2, 1];
