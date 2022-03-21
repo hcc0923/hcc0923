@@ -47,7 +47,7 @@
         // 每次单个宏任务执行完成后检查微任务队列是否为空，如果不为空就一次性执行完所有微任务
         // script start => async2 end => Promise => script end => async1 end => promise1 => promise2
 
-        console.log('---------------------浏览器进程架构--------------');
+
         // Chrome采用多进程架构（早期单进程架构节约资源但是不稳定）
         // 浏览器进程架构包括浏览器主进程（负责页面的显示与交互，其它进程的创建与销毁，各个页面的管理，网络资源的下载与管理）
         // 第三方插件进程：每种类型的插件对应一个进程，仅当使用该插件时才创建
@@ -84,7 +84,7 @@
                 // 关键路径长度：获取所有关键资源所需的往返总时间
                 // 关键字节：实现网页首次渲染所需的总字节数，等同于所有关键资源传送文件大小的总和
             
-            console.log('-----------------http与https------------');
+
             // HTTP的优缺点
                 // 优点
                     // 无连接：每次请求都要连接一次，请求结束就会断掉，节省网络资源开销
@@ -126,20 +126,13 @@
             // 强缓存Cache-Control：max-age,s-max-age(代理服务器缓存时间),public可以被任何缓存区缓存
             // private只能被浏览器缓存。no-cache:使用缓存强制客户端向服务器每次发送请求校验缓存是否过期。
             // no-store不使用缓存
-            function Person(name, age) {
-                this.name = name;
-                this.age = age;
-            }
-            var per = new Person('hcc', 25);
-            console.log(per.__proto__ === Person.prototype);
-            console.log(Person.prototype);
+           
 
-
-            console.log('---------------------存储---------------');
             // cookie早期是用来弥补HTTP无状态缺陷的。容量缺陷只有4KB，性能缺陷。Cookie
             // 每一次都跟着域名无论是否需要。安全缺陷。纯文本形式在浏览器和服务器中传递
             // localStorage容量上限为5M。持久化存储除非手动删除。sessionStorage会话级别
             // 页面关闭会话结束
+
 
             // HTML5新特性
                 // 语义化标签，数据存储，音视频标签，websocket，地理定位，canvas
@@ -149,14 +142,17 @@
             // web worker 辅助JS引擎线程来执行JS。web worker独立于JS引擎线程通过postMessage将
             // 结果回传到主线程。分担主线程执行JS代码的压力
 
+
             // strong标签有加重语气的语义，b标签没有，只是一个简单加粗标签。搜索引擎更侧重strong
             // title属性没有明确意义只表示标题，h1则表示层次明确的标题对SEO友好
             // <!doctype html> 是告诉浏览器按照W3C标准模式来解析HTML文件
+
 
             // 选择器优先级：行内样式>id选择器>类选择器=属性选择器=伪类选择器>标签选择器>通配符选择器
             // 字体属性：font-family font-weight font-size font-style
             // 文本属性：text-indent text-align line-height color vertical-align text-decoration
             // display控制元素是否出现在文档流中子孙节点会一起消失，visibility控制元素显示隐藏。子孙节点继承这个属性可以让子孙节点显示
+
 
             // 隐藏元素的方法
                 // display: none
@@ -188,13 +184,11 @@
 
                     // 解决高度塌陷问题。子元素浮动父元素没有高度支撑。创建自适应两栏布局。overflow: hidden
                     // sticky。在阈值以前是relative。超出阈值以后是fixed
-            console.log('-------------------------判断数组的方法-----------------');
             const testArr = [1, 2, 3];
             
-            console.log(Object.prototype.toString.call(testArr).slice(8, 13));
+            console.log(Object.prototype.toString.call(testArr).slice(8, 13) === 'Array');
             console.log(testArr.__proto__.constructor === Array);
             console.log(testArr instanceof Array);
-            console.log(testArr.__proto__ === Array.prototype);
             console.log(Array.isArray(testArr));
             // 计算机处理数字是先转换位二进制。0.1和0.2是两个循环的小数但是超过了Number的范围所以只保留52位小数
             console.log((0.1+0.2).toFixed(2));
@@ -203,21 +197,17 @@
                 return Math.abs(arg1 - arg2) < Number.EPSILON;
             }
             console.log(NumberEPSILON(0.1+0.2, 0.3));
-            console.log('1' === 1 == true);
 
-            console.log('--------------------var let const------------------');
+            
             // var 存在变量提升，ES5只有全局作用域和函数作用域。ES6的let const具有局部作用域
             // var 可以在变量未声明前使用。let const必须在变量声明后使用（暂时性死区）
             // var let初始化不用赋值，但是const必须赋值
             // var 可以重复声明，let const不能重复声明
 
+            
             // 箭头函数没有this，没有arguments，没有prototype。所以不能new实例化
             // 普通函数的this指向调用者。箭头函数的this指向定义箭头函数的作用域
-            var startEndString = 'xixi haha hehe';
-            startEndString.startsWith('xixi')
-            startEndString.endsWith('hehe')
-            startEndString.includes('hehe')
-            console.log(startEndString.startsWith('xixi'), startEndString.endsWith('hehe'), startEndString.includes('hehe'));
+
 
             // js对象没有JSON数据格式严格
             // js对象可以序列化为JSON对象JSON.stringify
@@ -229,7 +219,7 @@
             // 类数组具有length属性和若干索引属性不具有数组的方法
             // 通过concat和Array.from可以转化位数组。函数参数arguments就是类数组
 
-            // ASCLL编码专门为英语设计，Unicode编码包含了多种语言常见的实现方式有UTF-8，UTF-16,UTF-32
+            // ASCII编码专门为英语设计，Unicode编码包含了多种语言常见的实现方式有UTF-8，UTF-16,UTF-32
             // 什么是DOM和BOM？
                 // DOM指的是文档对象模型，它指的是把文档当作一个对象，这个对象主要定义了处理网页内容的方法和接口
                 // BOM指的是浏览器对象模型，它指的是把浏览器当作一个对象来对待，这个对象主要是定义了与浏览器
@@ -281,18 +271,11 @@
             // Vuex：state（），mutation（唯一更改store中状态的方法），action（用于提交mutation异步），getter（允许从store中获取数据），module
             // CORS除了简单请求（GET，POST，HEAD）都是复杂请求。都会进行预请求（OPTIONS）
 
-            var testArrs = [];
-            console.log(testArrs.prototype);
-            console.log(testArrs.__proto__);
-            console.log(testArrs.constructor);
 
             // 对象转换为基本类型
                 // 调用Symbol.toPrimitive成功就结束
                 // 调用valueOf成功就结束
                 // 调用toString成功就结束
-            // CommonJS和ES Module
-                // 前者支持动态导入require。同步。文件都在本地
-                // 后者是异步作用在浏览器
 
 
             // 防抖和节流的本质是不一样的。防抖是将多次抖动变为最后一次执行，节流是将多次执行变成间隔一段时间执行
@@ -307,11 +290,6 @@
                 // Set/Map数据结构
                 // Proxy
                 // Promise
-
-                // symbol，const/let，解构赋值，箭头函数，Promise，Set/Map，Proxy
-
-                // MVVM是根据MVC演变而来。M是Model数据层，V是View视图层，VM是ViewModel（Controller）
-                // 视图更新会通知VM层更新数据
 
                 // watch属性监听是一个对象，键是需要被观察的属性，值是对应的回调函数
                 // computed计算属性，属性结果会被缓存，当computed中的函数所依赖的属性没有发生变化时，那么调用
@@ -535,22 +513,25 @@
                 // 因为JS必须是单线程。所以必须设计同步任务和异步任务。因为有些任务耗时很久
                 // 会造成线程阻塞。为了更高效率的执行任务
             
-            function Persons(name, age) {
-                this.name = name;
-                this.age = age;
-            }
-            const ps = new Persons('hcc', 25);
-            console.log(ps);
-            console.log(ps.__proto__ === Persons.prototype);
-            console.log(ps.__proto__.constructor === Persons);
-            console.log(Persons.prototype.__proto__ === Object.prototype);
-            console.log(Persons.prototype.__proto__.constructor === Object);
-            console.log(Object.prototype === ps.__proto__.__proto__);
-            console.log(Persons.prototype.__proto__.__proto__);
+
+            // function Persons(name, age) {
+            //     this.name = name;
+            //     this.age = age;
+            // }
+            // const ps = new Persons('hcc', 25);
+            // console.log(ps);
+            // console.log(ps.__proto__ === Persons.prototype);
+            // console.log(ps.__proto__.constructor === Persons);
+            // console.log(Persons.prototype.__proto__ === Object.prototype);
+            // console.log(Persons.prototype.__proto__.constructor === Object);
+            // console.log(Object.prototype === ps.__proto__.__proto__);
+            // console.log(Persons.prototype.__proto__.__proto__);
+
 
             // 整体的script作为第一个宏任务执行的时候，会把代码分为同步代码和异步代码
             // 异步代码又会被分为宏任务与微任务
             // 同步任务会直接进入主线程依次执行。
+
 
             // 查找缓存。查找强缓存，再发送协商缓存304
             // DNS解析将域名解析为IP。先从本地缓存查找，DNS递归到权威域名服务器
@@ -641,14 +622,6 @@
             // Vue中key的作用？
                 // vue在进行新树与旧树对比的时候，通过节点的key来判断是否是相同的节点。
                 // 相同节点就跳过当前节点的对比。如果没有key。diff算法需要对比每一层树每一个节点
-            
-            // createElement 
-            // createTextNode
-            // setAttribute
-            // removeAttribute
-            // createDocumentFragment
-            // insertBefore
-            // appendChild
 
             // 当我们访问一个对象的属性的时候，会先在对象自身上查找属性，如果没有就会去对象的原型对象prototype上查找
             // 如果有就返回，如果没有就继续查找一直查找到Object.prototype为止。返回null 每个对象实例都能
@@ -684,139 +657,189 @@
             //     在JavaScript能够控制的范围被调用就是同步到。setTimeout 原生事件处理函数，
 
 
+            function add(a, b, c) {
+                return a + b + c;
+            }
+            function Curry(fn, ...args) {
+                if (fn.length > args.length) {
+                    return (...newArgs) => Curry(fn, ...args, ...newArgs); // 返回一个函数继续接收参数。args  是原来的参数  newArgs新参数
+                } else {
+                    return fn(...args); // 接收完所有参数执行函数
+                }
+            }
+            console.log(Curry(add)(1)(2)(3));
+
             function myInstanceOf(left, right) {
-                let prototype = Object.getPrototypeOf(left);
-                while (left) {
-                    if (prototype === null) {
-                        return left;
+                let proto = Object.getPrototypeOf(left);
+                let prototype = right.prototype;
+                while (true) {
+                    if (!proto) {
+                        return false;
                     }
-                    if (prototype === right.prototype) {
+                    if (proto === prototype) {
                         return true;
                     }
-                    prototype = Object.getPrototypeOf(prototype);
+                    proto = Object.getPrototypeOf(proto);
                 }
-                
             }
 
+            
+            function Person(name, age) {
+                this.name = name;
+                this.age = age;
+            }
+            Person.prototype.Say = function () {
+                console.log('Person Say');
+            }
+            const p = new Person('hcc', 25);
+            console.log(myInstanceOf(p, Person), myInstanceOf(p, Array));
+
+
+            function myNew(fn, ...args) {
+                const object = Object.create(fn.prototype);
+                const result = fn.call(object, ...args);
+                return result instanceof Object ? result : object; // 如果为对象就返回否则直接返回原始值
+            }
+            console.log(myNew(Person, 'hcc', 25));
+
+            function myCreate(object) {
+                function Fn() {};
+                Fn.prototype = object // 传入的对象为新对象提供原型对象
+                return new Fn();
+            }
+            console.log(myCreate(p));
+
             function AJAX(method, url, data) {
-                return new Promise((resolve, reject) => {
+                return new Promise(function(resolve, reject) {
                     const xhr = new XMLHttpRequest();
-                    xhr.onreadystatechange = () => {
+                    xhr.onreadystatechange = function() {
                         if (xhr.readyState !== 4) {
                             return;
                         }
                         if (xhr.status === 200) {
-                            resolve(xhr.responseText)
-                        } else {
-                            reject(new Error(xhr.responseText))
-                        }
-                    }
-                    xhr.open(method, url, true);
-                    xhr.send(data);
-                })
-            }
-
-
-            function AJAX(method, url, data) {
-                return new Promise((resolve, reject) => {
-                    const xhr = new XMLHttpRequest();
-                    xhr.onreadystatechange = () => {
-                        if (xhr.readyState !== 4) return;
-                        if (xhr.status === 200) {
                             resolve(xhr.responseText);
                         } else {
-                            reject(new Error(xhr.responseText))
+                            reject(new Error(xhr.responseText));
                         }
                     }
                     xhr.open(method, url, true);
                     xhr.send(data);
                 })
             }
-            function debounce(fn, delay) {
-                let timer;
-                return function() {
-                    clearTimeout(timer);
-                    timer = setTimeout(() => {
-                        fn.call(this, arguments);
-                    }, delay);
-                }
-            }
-            function throttle(fn, delay) {
-                let previous = 0;
-                return function() {
-                    let now = Date.now();
-                    if (now - previous > delay) {
-                        fn.call(this, arguments);
-                        previous = now;
-                    }
-                }
-            }
-            function myNew(fn, ...args) {
-                const obj = Object.create(fn.prototype);
-                const result = fn.call(obj, ...args);
-                return result instanceof Object ? result : obj;
-            }
-            // 组合继承
 
-            const sortArr = [5, 4, 3, 2, 1];
-            function bubbleSort(array) {
-                const length = array.length;
-                for (let i = 0; i < length; i++) {
-                    let flag = false;
-                    for (let j = 0; j < length - i - 1; j++) {
-                        [array[j], array[j + 1]] = [array[j + 1], array[j]]
-                        flag = true;
-                    }
-                    if (!flag) {
-                        return array;
-                    }
-                }
-            } 
-            console.log(bubbleSort(sortArr));
-            function selectSort(array) {
-                let minIndex;
-                const length = array.length;
-                for (let i = 0; i < length - 1; i++) {
-                    minIndex = i;
-                    for (let j = i + 1; j < length; j++) {
-                        if (array[j] < array[i]) {
-                            minIndex = j;
-                        }
-                    }
-                    [array[minIndex], array[i]] = [array[i], array[minIndex]];
-                }
-                return array;
-            } 
-            console.log(selectSort(sortArr));
-            function insertSort(array) {
-                const length = array.length;
-                for (let i = 0; i < length - 1; i++) {
-                    for (let j = 0 + 1; j < length; j++) {
-                        if (array[j] < array[i]) {
-                            [array[j - 1], array[j]] = [array[j], array[j - 1]]
-                        } else {
-                            break;
+            const cloneObject = {
+                name: 'hcc',
+                other: {
+                    age: 25,
+                    other: {
+                        gender: 'male',
+                        other: {
+                            date: new Date()
                         }
                     }
                 }
-            } 
-            console.log(selectSort(sortArr));
-            function quickSort(array) {
-                const length = array.length
-                if (length < 2) return array;
-                const middle = array[0];
-                const left = [];
-                const right = [];
-                for (let index = 1; index < length; index++) {
-                    if (array[index] < middle) {
-                        left.push(array[index]);
+            }
+
+            function shallowClone(object) {
+                const result = {};
+                for (const key in object) {
+                    result[key] = object[key]
+                }
+                return result;
+            }
+            console.log(shallowClone(cloneObject));
+
+            function deepClone(object, hash = new WeakMap()) {
+                if (object === null || typeof object !== 'object') { // 如果是null/undefined  或者是原始值
+                    return object;
+                }
+                if (object instanceof Date) {
+                    return new Date(object);
+                }
+                if (object instanceof RegExp) {
+                    return new RegExp(object);
+                }
+                if (hash.has(object)) { // 循环引用 hash.object = hash
+                    return object;
+                }
+                const result = new object.constructor();
+                hash.set(object, result);
+                for (const key in object) {
+                    if (object.hasOwnProperty(key)) {
+                        result[key] = deepClone(object[key], hash);
+                    }
+                }
+                return result;
+            }
+            const testDeepClone = deepClone(cloneObject)
+            console.log(testDeepClone);
+            cloneObject.history = 'history';
+            console.log(testDeepClone);
+
+            function changeThis(...args) {
+                console.log(...args);
+            }
+            Function.prototype.myCall = function (context, ...args) {
+                context = Object(context) || window;
+                const fn = Symbol('fn');
+                context[fn] = this;
+                const result = context[fn](...args);
+                delete context[fn];
+                return result;
+            }
+            Function.prototype.myApply = function (context, args) {
+                context = Object(context) || window;
+                const fn = Symbol('fn');
+                context[fn] = this;
+                const result = context[fn](...args);
+                delete context[fn];
+                return result;
+            }
+            Function.prototype.myBind = function (context, ...args) {
+                return (...newArgs) => {
+                    return this.call(context, ...args, ...newArgs);
+                }
+            }
+            changeThis.myCall(window,1, 2, 3);
+            changeThis.myApply(window,[1, 2, 3]);
+            changeThis.myBind(window,1, 2 , 3)(4, 5, 6);
+
+            const uniqueArr = [1, 2, 1, 2, 3, 4, 4, 5];
+            function uniqueArray1(array) {
+                const result = {};
+                return array.filter(element => {
+                    return result.hasOwnProperty(typeof element + element) ? false : (result[typeof element + element] = true);
+                })
+                return result;
+            }
+            function uniqueArray2(array) {
+                return array.filter((element, index, array) => {
+                    return array.indexOf(element) === index;
+                })
+            }
+            console.log(uniqueArray1(uniqueArr));
+            console.log(uniqueArray2(uniqueArr));
+            console.log([...new Set(uniqueArr)]);
+
+
+            const flatArr = [1, [2, 3, [4, 5, 6]]];
+            function flatArray(array) {
+                let result = [];
+                for (let index = 0; index < array.length; index++) { // 遍历元素如果是数组就concat递归，否则就push
+                    if (Array.isArray(array[index])) {
+                        result = result.concat(flatArray(array[index]));
                     } else {
-                        right.push(array[index]);
+                        result.push(array[index]);
                     }
                 }
-                return quickSort(left).concat([middle], quickSort(right));
-            } 
-            console.log(quickSort(sortArr));
+                return result;
+            }
+
+            console.log(flatArray(flatArr));
+            console.log(flatArr.flat(Infinity));
+
+
+            
     </script>
 </body>
 </html>
