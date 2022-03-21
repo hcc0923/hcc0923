@@ -982,15 +982,15 @@
                 }
                 return array;
             }
-
-
             console.log(bubbleSort(sortArray));
+
+
             function selectSort(array) {
                 let minIndex;
                 for (let i = 0; i < array.length; i++) {
                     minIndex = i; // 假设第一个元素是最小的
                     for (let j = i + 1; j < array.length; j++) {
-                        if (array[i] > array[j]) {
+                        if (array[i] > array[j]) { // 外层与内层对比，minIndex用来保存最小值索引
                             minIndex = j; 
                         }
                     }
@@ -998,9 +998,9 @@
                 }
                 return array;
             }
-
-
             console.log(selectSort(sortArray));
+
+
             function insertSort(array) {
                 for (let i = 0; i < array.length - 1; i++) {
                     for (let j = i + 1; j > 0; j--) {
