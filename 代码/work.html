@@ -263,6 +263,7 @@
                 // 路由懒加载
                 // cdn引入公共库
                 // 开启GZIP压缩
+           
             // vue-router路由模式：hash，history
                 // hash：使用URL hash值来作为路由。支持所有浏览器。url中#后面的内容。
                     // 通过hashchange事件来监听hash值的改变。location.hash进行赋值
@@ -990,7 +991,7 @@
                 for (let i = 0; i < array.length; i++) {
                     minIndex = i; // 假设第一个元素是最小的
                     for (let j = i + 1; j < array.length; j++) {
-                        if (array[i] > array[j]) { // 外层与内层对比，minIndex用来保存最小值索引
+                        if (array[i] > array[j]) { // 从待排序的元素中找出最小的元素，保存索引
                             minIndex = j; 
                         }
                     }
@@ -1002,7 +1003,7 @@
 
 
             function insertSort(array) {
-                for (let i = 0; i < array.length - 1; i++) {
+                for (let i = 0; i < array.length; i++) {
                     for (let j = i + 1; j > 0; j--) {
                         if (array[j] < array[j - 1]) {
                             [array[j - 1], array[j]] = [array[j], array[j - 1]]
@@ -1034,6 +1035,103 @@
                 return quickSort(left).concat([middle], quickSort(right));
             }
             console.log(quickSort(sortArray));
+
+
+             // React优化
+                // 渲染列表添加key不要使用index
+                // 使用React.PureComponent === React.Component + ShouldComponentUpdate
+                // 使用动态加载组件和异步加载组件  React-loadable   React.Lazy
+                // 使用React.memo缓存无状态组件（函数组件）   
+                // setTimeout addEventListener 在组件销毁时 componentWillUnmount 中取消
+            // 无状态组件
+                // 输入props输出JSX
+                // 没有生命周期，没有实例，没有state
+                // 不能扩展其他方法
+            // React事件合成机制
+                // 所有时间挂载到document上
+                // event不是原生的, 是SyntheticEvent合成事件对象
+                // 事件冒泡到document react委托给SyntheticEvent 派发event dispatchEvent(event) 给事件处理函数
+                // 更好的兼容性和跨平台, 摆脱传统DOM事件
+                // 减少内存消耗挂载到document
+                // 方便事件统一管理
+                // vue中事件绑定和触发的对象为同一元素
+                // react中事件触发的对象为document, 绑定的为当前元素
+            // React和Vue的区别
+                // react使用jsx, vue使用template
+                // react是函数式编程, vue是声明式编程
+                // react是自力更生, vue是家里有矿
+
+                // 组件化开发,便于开发, 扩展, 维护, 复用
+                // 数据驱动试图
+                // 都是虚拟DOM diff然后 patch 驱动视图更新
+            
+            // 设计模式
+                // 工厂模式
+                    // jQuery-$('div')
+                    // React.creatElement()
+                    // Vue的异步组件
+                // 单例模式
+                    // 一个类只有一个实例
+                    // jQuery只有一个$
+                    // Vuex/Redux
+                // 装饰器模式
+                    // 为对象扩展新功能,不改变原有的结构和功能,防止对其他使用者造成破坏
+                // 代理模式
+                    // ES6 Proxy
+                // 发布订阅
+                    // dep-Watcher
+            
+            // useRef 用来拿到子组件的实例相当于  React.createRef()
+
+            // 受控组件 表单维护自己的状态, react可以控制这些状态并在onChange中操作  受控组件(表单的状态受React控制)
+            // 非受控组件  通过Ref来直接操作DOM来 控制状态 而不是通过 react事件处理程序 onChange(表单的状态自己控制)
+
+
+            // 前端富文本
+                // vue v-html
+                // react dangerouslySetInnerHTML
+            
+            // prop-types属性类型检查
+
+            // 使用props太过繁琐, 使用redux小题大做  使用Context Provider  Consumer  
+            // 类似 Vue中的provider  inject
+
+            // render props核心思想  将class组件的state传递给函数组件的props
+
+            // 元素是react中最小的基本单位, react元素是用来模拟虚拟dom构成 组件
+
+            // React fiber 将组件分段渲染   与JS代码循环使用JS引擎线程
+
+            // React.createPortal(child, container)   将子节点渲染到父组件外面
+
+            // 高阶组件(HOC) 是接受一个组件返回一个新组件的函数  这是一个模式
+
+            // BFC的作用   解决父级元素高度塌陷     避免某元素被浮动元素覆盖    
+
+
+            // 父级元素高度塌陷    使用伪类清除浮动    父元素设置高度   触发BFC
+
+            // typeof 不能区分array object null date
+
+            // 作用域就是变量与函数的可访问范围 window对象内置的属性都拥有全局的作用域范围
+
+            // this的指向
+                // 全局的变量和函数this指向window
+                // 作为方法调用指向对象
+                // 构造函数指向实例化的对象
+                // 箭头函数的this指向最近一层的具有this的对象
+            
+            // 事件循环的机制是先执行 栈中的同步任务   然后执行队列中的微任务   再执行宏任务  (每个宏任务都有一个微任务队列)
+
+            // 宏任务: AJAX setTimeout setInterval requestAnimationFrame script
+
+            // 防抖的应用: 搜索框搜索输入   手机号 邮箱校验 窗口大小resize
+            // 节流的应用: 下拉加载更多, 高频点击, 多次提交
+
+            // 组件中的data为什么是一个函数?
+            // 组件可以被复用, 因此data中的变量必须隔离起来自己独自存在一个作用域中
+
+            
     </script>
 </body>
 </html>
