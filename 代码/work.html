@@ -969,11 +969,12 @@
             
             const sortArray = [5, 4, 3, 2, 1];
             function bubbleSort(array) {
-                for (let i = 0; i < array.length; i++) {
+                const length = array.length;
+                for (let i = 0; i < length; i++) {
                     let flag = false;
-                    for (let j = 0; j < array.length - i - 1; j++) {
-                        if (array[j] > array[j + 1]) {
-                            [array[j], array[j + 1]] = [array[j + 1], array[j]];
+                    for (let j = 0; j < length - i - 1; j++) { // 每次冒泡至少一个元素有序
+                        if (array[j] > array[j+1]) {
+                            [array[j+1], array[j]] = [array[j], array[j+1]];
                             flag = true;
                         }
                     }
@@ -988,11 +989,12 @@
 
             function selectSort(array) {
                 let minIndex;
-                for (let i = 0; i < array.length; i++) {
-                    minIndex = i; // 假设第一个元素是最小的
-                    for (let j = i + 1; j < array.length; j++) {
-                        if (array[i] > array[j]) { // 从待排序的元素中找出最小的元素，保存索引
-                            minIndex = j; 
+                const length = array.length;
+                for (let i = 0; i < length; i++) {
+                    minIndex = i;
+                    for (let j = i + 1; j < length; j++) { // 待排序元素中找出最小的元素, 保存索引与假设的元素交换
+                        if (array[j] < array[i]) {
+                            minIndex = j;
                         }
                     }
                     [array[minIndex], array[i]] = [array[i], array[minIndex]];
@@ -1001,12 +1003,13 @@
             }
             console.log(selectSort(sortArray));
 
-
+            
             function insertSort(array) {
-                for (let i = 0; i < array.length; i++) {
-                    for (let j = i + 1; j > 0; j--) {
-                        if (array[j] < array[j - 1]) {
-                            [array[j - 1], array[j]] = [array[j], array[j - 1]]
+                const length = array.length;
+                for (let i = 0; i < length; i++) {
+                    for (let j = i + 1; j > 0; j--) { 
+                        if (array[j-1] > array[j]) {
+                            [array[j], array[j-1]] = [array[j-1], array[j]];
                         } else {
                             // 当不小于已排序好的最大值时
                             // 退出每次遍历，进行下一次
@@ -1043,6 +1046,9 @@
                 // 使用动态加载组件和异步加载组件  React-loadable   React.Lazy
                 // 使用React.memo缓存无状态组件（函数组件）   
                 // setTimeout addEventListener 在组件销毁时 componentWillUnmount 中取消
+                // 使用CSS(透明度调整为)来使组件不可见而不是卸载销毁
+                // 使用React.Fragment
+
             // 无状态组件
                 // 输入props输出JSX
                 // 没有生命周期，没有实例，没有state
@@ -1068,7 +1074,7 @@
             // 设计模式
                 // 工厂模式
                     // jQuery-$('div')
-                    // React.creatElement()
+                    // React.createElement()
                     // Vue的异步组件
                 // 单例模式
                     // 一个类只有一个实例
@@ -1091,7 +1097,15 @@
                 // vue v-html
                 // react dangerouslySetInnerHTML
             
+            // vue中数据不需要响应式使用Object.freeze()
             // prop-types属性类型检查
+
+            // xss
+                // 窃取cookie
+                // 监听用户的行为
+                // 植入广告
+                // 修改dom伪造登录表单窃取账号密码
+                // 反射型  服务器处理用户请求拿到参数q再返回用户
 
             // 使用props太过繁琐, 使用redux小题大做  使用Context Provider  Consumer  
             // 类似 Vue中的provider  inject
@@ -1155,10 +1169,29 @@
                 // 当事件冒泡至document  冒泡到document的事件不是原生浏览器事件 而是 SyntheticEvent合成事件
                 // react将事件内容封装并交由真正的处理函数处理
 
+            // React.memo/useMemo存储函数的结果
+            // useCallback存储函数, 返回一个函数供子组件使用
+
+            
+            
+            // shouldComponentUpdate使用场景  父组件接收相同的props子组件重新渲染, 在子组件中使用shouldComponentUpdate
+            // PureComponent对于传入的基本类型(值相同), 引用类型(引用相同) 浅比较
+
+
             // 工作中遇到的问题
                 // 修改UI库的样式 嵌套很深的层次  被迫在 父级  爷爷级  使用!important
                 // vue中 业务逻辑  在Methods中  Computed  data中   修改一个页面的数据  漏洞数据
                 // 修改漏洞的 某些字段数据  与 修改 POC的字段数据 重复   从而导致 二者  在业务逻辑方法也会重复
-    </script>
+            // 如何学习
+                // 看官方文档/掘金/ github
+                // 科学上网YouTube  国外文档 动画演示
+            // 项目专业术语
+                // 漏洞名称, id, name, 厂商(漏洞是哪个厂商的), poc, cve, cnvd, cnnvd, 漏洞等级, 
+                // 补丁  参考资料  弱口令 积分兑换
+                // 0Day  exp  payload weblogic shellcode  护网行动
+            
+            function test() {};
+            console.log(Object.prototype.constructor === Object);
+    </script> 
 </body>
 </html>
