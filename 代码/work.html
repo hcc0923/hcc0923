@@ -972,17 +972,17 @@
                 const length = array.length;
                 for (let i = 0; i < length; i++) {
                     let flag = false;
-                    for (let j = 0; j < length - i - 1; j++) { // 每次冒泡至少一个元素有序
-                        if (array[j] > array[j+1]) {
+                    for (let j = 0; j < length - i - 1; j++) {
+                        if (array[j+1] < array[j]) { // 冒泡一次至少一个元素是有序的
                             [array[j+1], array[j]] = [array[j], array[j+1]];
                             flag = true;
                         }
                     }
                     if (!flag) {
-                        return array; // 已经是有序的
+                        return array; //全部都是有序的
                     }
                 }
-                return array;
+                return array; 
             }
             console.log(bubbleSort(sortArray));
 
@@ -992,28 +992,26 @@
                 const length = array.length;
                 for (let i = 0; i < length; i++) {
                     minIndex = i;
-                    for (let j = i + 1; j < length; j++) { // 待排序元素中找出最小的元素, 保存索引与假设的元素交换
+                    for (let j = i + 1; j < array.length; j++) { // 待排序元素中找出最小的元素, 保存索引与假设的元素交换
                         if (array[j] < array[i]) {
                             minIndex = j;
                         }
                     }
-                    [array[minIndex], array[i]] = [array[i], array[minIndex]];
+                    [array[i], array[minIndex]] = [array[minIndex], array[i]];
                 }
                 return array;
             }
             console.log(selectSort(sortArray));
-
+            
             
             function insertSort(array) {
                 const length = array.length;
                 for (let i = 0; i < length; i++) {
-                    for (let j = i + 1; j > 0; j--) { 
-                        if (array[j-1] > array[j]) {
+                    for (let j = i + 1; j > 0; j--) {
+                        if (array[j] < array[j-1]) {
                             [array[j], array[j-1]] = [array[j-1], array[j]];
                         } else {
-                            // 当不小于已排序好的最大值时
-                            // 退出每次遍历，进行下一次
-                            break;
+                            break; // 当不小于时退出循环
                         }
                     }
                 }
@@ -1024,7 +1022,9 @@
 
             function quickSort(array) {
                 const length = array.length;
-                if (length < 2) return array;
+                if (length < 2) {
+                    return array;
+                }
                 const middle = array[0];
                 const left = [];
                 const right = [];
