@@ -1091,7 +1091,7 @@
 
             // 受控组件 表单维护自己的状态, react可以控制这些状态并在onChange中操作  受控组件(表单的状态受React控制)
             // 非受控组件  通过Ref来直接操作DOM来 控制状态 而不是通过 react事件处理程序 onChange(表单的状态自己控制)
-
+            
 
             // 前端富文本
                 // vue v-html
@@ -1173,6 +1173,21 @@
             // useCallback存储函数, 返回一个函数供子组件使用
 
             
+            // file-loader 通过url去引用文件
+            // url-loader 与file-loader类似  区别是有一个阈值  超过 用  file-loader  否则用url-loader base64
+            // image-loader 加载并且压缩图片文件   gzip  压缩文件
+            // babel-loader 将
+            // sass-loader
+            // less-loader
+            // css-loader
+
+            // html-webpack-plugin
+            // uglify-webpack-loader
+            // clean-webpack-plugin 清除目录
+
+
+            // 作用域最大用处就是隔离变量,不同作用于下同名变量不会有冲突
+            
             
             // shouldComponentUpdate使用场景  父组件接收相同的props子组件重新渲染, 在子组件中使用shouldComponentUpdate
             // PureComponent对于传入的基本类型(值相同), 引用类型(引用相同) 浅比较
@@ -1186,12 +1201,27 @@
                 // 看官方文档/掘金/ github
                 // 科学上网YouTube  国外文档 动画演示
             // 项目专业术语
+                // greatAgain greatMessage greatSecurity greatAttack SSO
                 // 漏洞名称, id, name, 厂商(漏洞是哪个厂商的), poc, cve, cnvd, cnnvd, 漏洞等级, 
                 // 补丁  参考资料  弱口令 积分兑换
                 // 0Day  exp  payload weblogic shellcode  护网行动
-            
-            function test() {};
-            console.log(Object.prototype.constructor === Object);
+
+
+                // 用户积分兑换漏洞信息  用户提交漏洞获取积分可以兑换实物  管理员审核漏洞正确性
+                // 每个用户提交的漏洞  漏洞下的poc 获取积分
+
+
+                // 难点  一个页面  嵌套 远程搜索的组件 验证漏洞是否已经存在数据库
+                    //   嵌套富文本组件或者codemirror
+                    // 嵌套提交POC的组件
+                        // POC的组件又嵌套三个不同类型的输入框
+                            // POC三种类型的组件  其中一个 再次引用codemirror组件
+                // 相同功能的复用 提取纯函数  而不是  让组件涉入过多业务 不能复用
+
+                // 涉及太多业务的组件  复用很难    尤其功能差不多的组件  面向用户与面向管理员  就是一些权限的差异
+
+
+                // 配合后端  go/python  ruby
     </script> 
 </body>
 </html>
