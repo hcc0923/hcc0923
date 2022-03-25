@@ -1172,6 +1172,17 @@
             // React.memo/useMemo存储函数的结果
             // useCallback存储函数, 返回一个函数供子组件使用
 
+            // mouseenter 鼠标进入某个元素边界时触发
+            // mouseleave 鼠标离开某个元素边界时触发
+            // mousemove 鼠标在某个元素身上时持续发生
+            // mouseover 松开鼠标时触发
+            // onkeydown 按下键盘时触发
+            // onkeyup 松开键盘时触发
+
+
+            // vue实例创建之后添加新属性到实例上
+            // 直接通过数组下标来修改数组的值  splice vue重构数组方法
+            // Vue.set/$set     
             
             // file-loader 通过url去引用文件
             // url-loader 与file-loader类似  区别是有一个阈值  超过 用  file-loader  否则用url-loader base64
@@ -1184,14 +1195,37 @@
             // html-webpack-plugin
             // uglify-webpack-loader
             // clean-webpack-plugin 清除目录
-
+            // 压缩代码
+            // tree-shaking
+            // scope-hoisting
+            // 动态polyfill
 
             // 作用域最大用处就是隔离变量,不同作用于下同名变量不会有冲突
-            
-            
+
+            // ts是js的超集, ts有严格的类型声明
+            // ts 需要静态编译 最终仍要编译为弱类型 
+            // boolean number string null undefined any 
+
             // shouldComponentUpdate使用场景  父组件接收相同的props子组件重新渲染, 在子组件中使用shouldComponentUpdate
             // PureComponent对于传入的基本类型(值相同), 引用类型(引用相同) 浅比较
 
+
+            // 前端优化
+                // 使用HTTP2
+                // 使用服务端渲染
+                // 静态资源CDN
+                // 将CSS文件放在头部, JS文件放在尾部  合理使用defer async
+                // 使用字体图标iconfont代替图片图标
+                // 使用缓存  强缓存  协商缓存
+                // 图片优化   压缩 webp  
+                // 懒加载  路由懒加载  组件懒加载   列表懒加载
+                // webpack 按需加载代码 剔除无用 代码 tree-shaking 
+                // 减少 重排  重绘  少操作DOM  删除  修改大小 位置
+                // 使用事件委托
+                // 使用requestAnimationFrame
+                // 使用web worker
+                // 使用本地存储 保存不会经常改变的数据
+            
 
             // 工作中遇到的问题
                 // 修改UI库的样式 嵌套很深的层次  被迫在 父级  爷爷级  使用!important
@@ -1222,6 +1256,12 @@
 
 
                 // 配合后端  go/python  ruby
+
+
+                const a = [];
+                const b = a
+                b.push(1)
+                a b 
     </script> 
 </body>
 </html>
