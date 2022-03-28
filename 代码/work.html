@@ -1184,23 +1184,31 @@
             // 直接通过数组下标来修改数组的值  splice vue重构数组方法
             // Vue.set/$set     
             
-            // file-loader 通过url去引用文件
+            // file-loader 把文件输出到文件夹中在代码中通过url去引用文件
             // url-loader 与file-loader类似  区别是有一个阈值  超过 用  file-loader  否则用url-loader base64
             // image-loader 加载并且压缩图片文件   gzip  压缩文件
-            // babel-loader 将
-            // sass-loader
-            // less-loader
-            // css-loader
+            // babel-loader 将es6转为es5
+            // ts-loader 将ts转为js
+            // sass-loader sass转为css
+            // less-loader less转为css
+            // css-loader 加载css支持模块化，压缩，文件导入
+            // vue-loader加载vue文件
 
-            // html-webpack-plugin
-            // uglify-webpack-loader
+            // html-webpack-plugin 简化html文件创建
+            // uglify-webpack-loader 压缩js
             // clean-webpack-plugin 清除目录
-            // 压缩代码
-            // tree-shaking
-            // scope-hoisting
-            // 动态polyfill
+            // serviceworker-webpack-plugin 为网页应用增加离线缓存功能
+            // webpack只认识JavaScript，所以loader就是翻译官，将各种文件资源翻译为JavaScript
+            // plugin用来完成  loader无法胜任的一些工作
 
             // 作用域最大用处就是隔离变量,不同作用于下同名变量不会有冲突
+
+
+            // babel编译原理？
+            // babel将es6/es5解析成高级的AST
+            // 再将高级的AST转译为低级的AST
+            // 再将低级的AST转换成es5
+
 
             // ts是js的超集, ts有严格的类型声明
             // ts 需要静态编译 最终仍要编译为弱类型 
@@ -1256,12 +1264,6 @@
 
 
                 // 配合后端  go/python  ruby
-
-
-                const a = [];
-                const b = a
-                b.push(1)
-                a b 
     </script> 
 </body>
 </html>
