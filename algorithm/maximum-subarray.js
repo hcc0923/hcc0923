@@ -1,8 +1,13 @@
 var maxSubArray = function(nums) {
     let max = nums[0];
-    for (let index = 1; index < nums.length; index++) {
-        nums[index] = Math.max(nums[index], nums[index] + nums[index - 1]);
-        max = Math.max(max, nums[index]);
+    let sum = 0;
+    for (let index = 0; index < nums.length; index++) {
+        if (sum > 0) {
+            sum += nums[index];
+        } else {
+            sum = nums[index];
+        }
+        max = Math.max(max, sum);
     }
     return max;
 };

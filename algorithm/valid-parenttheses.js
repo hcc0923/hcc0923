@@ -1,7 +1,8 @@
 var isValid = function(s) {
     const stack = [];
     for (let index = 0; index < s.length; index++) {
-        switch (s[index]) {
+        let char = s[index];
+        switch (char) {
             case '(':
                 stack.push(')');
                 break;
@@ -12,7 +13,7 @@ var isValid = function(s) {
                 stack.push('}');
                 break;
             default:
-                if (stack[index] !== stack.pop()) {
+                if (char !== stack.pop()) {
                     return false;
                 }
         }
