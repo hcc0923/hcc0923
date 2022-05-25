@@ -51,6 +51,14 @@
             });
         }
         console.log(uniqueArrays(uniqueArr));
+        const arrDuplicates = [1, 2, 1, 2, 3, 4, 5];
+        const myArrayWithNoDuplicates = arrDuplicates.reduce((prev, cur) => {
+            if (prev.indexOf(cur) === -1) {
+            prev.push(cur);
+            }
+            return prev;
+        }, []);
+        console.log(myArrayWithNoDuplicates);
         // 实现函数防抖
         function debounce(fn, delay) {
             let timer;
@@ -382,6 +390,15 @@
         // 实现MUL函数
         const mul = x => y => z => x * y * z;
         console.log(mul(1)(2)(3));
+        // 组合式函数
+        const double = x => x * 2;
+        const triple = x => x * 3;
+
+        const pipe = (...fns) => initVal => fns.reduce((initVal, fn) => fn(initVal), initVal);
+
+        const multiply6 = pipe(double, triple);
+
+        console.log(multiply6(1));
     </script>
 </body>
 </html>

@@ -1,5 +1,5 @@
-var findMediaSortedArrays = function(num1, num2) {
-    const array = num1.concat(num2).sort();
+var findMediaSortedArrays = function(nums1, nums2) {
+    const array = nums1.concat(nums2).sort((a, b) => a-b);
     const length = array.length;
     if (length%2 === 0) {
         return ((array[length/2 - 1] + array[length/2])/2).toFixed(5);
@@ -7,6 +7,6 @@ var findMediaSortedArrays = function(num1, num2) {
         return array[Math.floor(length/2)].toFixed(5)
     }
 };
-const num1 = [1, 3];
-const num2 = [2];
-console.log(findMediaSortedArrays(num1, num2));
+const nums1 = [3];
+const nums2 = [-2,-1];
+console.log(findMediaSortedArrays(nums1, nums2));
