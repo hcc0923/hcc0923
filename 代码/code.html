@@ -105,7 +105,7 @@
         console.log(shallowClone(cloneObject));
         // 实现深拷贝
         function deepClone(object, hash = new WeakMap()) {
-            if (object === null || typeof object === 'object') {
+            if (object === null || typeof object !== 'object') {
                 return object;
             }
             if (object instanceof Date) {
@@ -121,7 +121,7 @@
             hash.set(object, result);
             for (const key in object) {
                 if (object.hasOwnProperty.call(object, key)) {
-                    result[key] = deepClone(object[key], hash);
+                    result[key] = typeof object[key] ==="object" ? deepClone(object[key], hash) : object[key];
                 }
             }
             return result;

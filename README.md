@@ -1,12 +1,11 @@
 ### Hello 👋
 
-🔭 I’m currently working on ...
+🤔 I’m currently learning Data Structures and Algorithms.
 
-🌱 I’m currently learning ...
+🌱 I’m currently learning JavaScript in depth.
 
-👯 I’m looking to collaborate on ...
+🚶‍♂️ I’m currently reviewing computer basics.
 
-😄 Pronouns: ...
 
 [![hcc's github stats](https://github-readme-stats.vercel.app/api/?username=hcc960923&theme=dark&show_icons=true&&count_private=true)](https://github.com/hcc960923/github-readme-stats)
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=hcc960923&bg_color=151515&layout=compact&text_color=9f9f9f&icon_color=79ff97&title_color=fff)](https://github.com/hcc960923/github-readme-stats)
