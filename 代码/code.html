@@ -51,6 +51,14 @@
             });
         }
         console.log(uniqueArrays(uniqueArr));
+        const arrDuplicates = [1, 2, 1, 2, 3, 4, 5];
+        const myArrayWithNoDuplicates = arrDuplicates.reduce((prev, cur) => {
+            if (prev.indexOf(cur) === -1) {
+            prev.push(cur);
+            }
+            return prev;
+        }, []);
+        console.log(myArrayWithNoDuplicates);
         // 实现函数防抖
         function debounce(fn, delay) {
             let timer;
@@ -97,7 +105,7 @@
         console.log(shallowClone(cloneObject));
         // 实现深拷贝
         function deepClone(object, hash = new WeakMap()) {
-            if (object === null || typeof object === 'object') {
+            if (object === null || typeof object !== 'object') {
                 return object;
             }
             if (object instanceof Date) {
@@ -113,7 +121,7 @@
             hash.set(object, result);
             for (const key in object) {
                 if (object.hasOwnProperty.call(object, key)) {
-                    result[key] = deepClone(object[key], hash);
+                    result[key] = typeof object[key] ==="object" ? deepClone(object[key], hash) : object[key];
                 }
             }
             return result;
@@ -382,6 +390,24 @@
         // 实现MUL函数
         const mul = x => y => z => x * y * z;
         console.log(mul(1)(2)(3));
+        // 组合式函数
+        const double = x => x * 2;
+        const triple = x => x * 3;
+
+        const pipe = (...fns) => initVal => fns.reduce((initVal, fn) => fn(initVal), initVal);
+
+        const multiply6 = pipe(double, triple);
+
+        console.log(multiply6(1));
+        // valueOf
+        (function() {
+            var a = {};
+            var num = 0;
+            a.valueOf = function() {
+                return ++num;
+            }
+            console.log(a == 1 && a == 2 && a == 3);
+        }())
     </script>
 </body>
 </html>
