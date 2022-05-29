@@ -2,11 +2,7 @@ var maxSubArray = function(nums) {
     let max = nums[0];
     let sum = 0;
     for (let index = 0; index < nums.length; index++) {
-        if (sum > 0) {
-            sum += nums[index];
-        } else {
-            sum = nums[index];
-        }
+        sum > 0 ? sum += nums[index] : sum = nums[index];
         max = Math.max(max, sum);
     }
     return max;
