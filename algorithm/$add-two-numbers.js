@@ -1,34 +1,20 @@
 function ListNode(val, next) {
     this.val = (val === undefined ? 0 : val);
-    this.next = (next === undefined ? null : next);    
+    this.next = (next === undefined ? null : next);
 }
-const node = new ListNode();
-console.log(node);
 var addTwoNumbers = function(l1, l2) {
-    let n1 = '';
-    let n2 = '';
-    let n = 0;
-    while (l1 !== null) {
-        n1 += l1.val;
+    if (l1 === null) return l2;
+    if (l2 === null) return l1;
+    let val = l1.val + l2.val;
+    ListNode next = addTwoNumbers(l1.next, l2.next);
+    if (val >= 10) {
+        val -= 10;
+        next = addTwoNumbers(next, new ListNode(1));
     }
-    while (l2 !== null) {
-        n2 += l2.val
-    }
-    n1 = n1.toString().reverse();
-    n2 = n2.toString().reverse();
-    n = Number(n1) + Number(n2); 
-    n = n.toString().reverse();
-    const result = new ListNode(n[0], n[1]);
-    for (let index = 1; index < n.length; index++) {
-        result.val = n[index];
-        if (index + 1 === n.length) {
-            result.next = null;
-        } else {
-            result.next = n[index + 1];
-        }
-    }
-    return result;
+    return new ListNode(val, next);
 }
-var l1 = [2, 4, 3];
-var l2 = [5, 6, 4];
+// var l1 = [2, 4, 3];
+// var l2 = [5, 6, 4];
+// 输出：[7,0,8]
+// 342+465=807
 console.log(addTwoNumbers(l1, l2));
