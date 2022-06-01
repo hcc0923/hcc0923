@@ -407,7 +407,34 @@
                 return ++num;
             }
             console.log(a == 1 && a == 2 && a == 3);
-        }())
+        }());
+        // setTimeout()运行的代码与所在函数完全分离的执行环境上
+        // 对象运行环境发生了变化,原型链也会变化
+        var num = 0;
+        function Obj() {
+        this.num = 1;
+        this.getNum = function() {
+            console.log(this.num);
+        },
+        this.getNums = function() {
+            setTimeout(function() {
+            console.log(this.num);
+            }, 1000);
+        }
+        // this.getNums = function() {
+        //   setTimeout(function() {
+        //     console.log(this.num);
+        //   }.bind(this), 1000);
+        // },
+        // this.getNums = function() {
+        //   setTimeout(() => {
+        //     console.log(this.num);
+        //   }, 1000)
+        // }
+        }
+        var obj = new Obj();
+        console.log(obj.getNum());
+        console.log(obj.getNums());
     </script>
 </body>
 </html>
