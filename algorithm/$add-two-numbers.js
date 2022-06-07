@@ -6,7 +6,7 @@ var addTwoNumbers = function(l1, l2) {
     if (l1 === null) return l2;
     if (l2 === null) return l1;
     let val = l1.val + l2.val;
-    ListNode next = addTwoNumbers(l1.next, l2.next);
+    next = addTwoNumbers(l1.next, l2.next);
     if (val >= 10) {
         val -= 10;
         next = addTwoNumbers(next, new ListNode(1));
