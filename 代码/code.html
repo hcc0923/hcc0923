@@ -51,14 +51,6 @@
             });
         }
         console.log(uniqueArrays(uniqueArr));
-        const arrDuplicates = [1, 2, 1, 2, 3, 4, 5];
-        const myArrayWithNoDuplicates = arrDuplicates.reduce((prev, cur) => {
-            if (prev.indexOf(cur) === -1) {
-            prev.push(cur);
-            }
-            return prev;
-        }, []);
-        console.log(myArrayWithNoDuplicates);
         // 实现函数防抖
         function debounce(fn, delay) {
             let timer;
