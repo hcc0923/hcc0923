@@ -387,14 +387,41 @@
         //     })(index);
         // }
         // valueOf
-        (function() {
-            var a = {};
-            var num = 0;
-            a.valueOf = function() {
-                return ++num;
+        const a1 = {
+            i: 1,
+            [Symbol.toPrimitive]() {
+                return this.i++
             }
-            console.log(a == 1 && a == 2 && a == 3);
-        }());
+        }
+        // console.log(a1 == 1 && a1 == 2 && a1 == 3);
+        const a2 = {
+            value: 1,
+            valueOf() {
+                return 2;
+            },
+            toString() {
+                return '3';
+            },
+            [Symbol.toPrimitive]() {
+                return 1;
+            }
+        }
+        // console.log(a2 == 1 && a2 == 2 && a2 == 3 && a2 == 4);
+        const a3 = {
+            i: 1,
+            valueOf() {
+                return this.i++;
+            },
+        }
+        // console.log(a3 == 1 && a3 == 2 && a3 == 3);
+
+        let _a = 1;
+        Object.defineProperty(window, 'a', {
+            get() {
+                return _a++;
+            }
+        });
+        console.log(a == 1 && a == 2 && a == 3);
         // setTimeout()运行的代码与所在函数完全分离的执行环境上
         // 对象运行环境发生了变化,原型链也会变化
         var num = 0;
