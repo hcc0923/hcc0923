@@ -19,10 +19,10 @@
                 return fn(...args);
             }
         }
-        console.log(curry(add)(1)(2)(3));
+        // console.log(curry(add)(1)(2)(3));
         // 多种方式实现数组扁平化
         const flatArr = [1, [2, 3, [4, 5]]];
-        console.log(flatArr.flat(Infinity));
+        // console.log(flatArr.flat(Infinity));
         function flatArray(array) {
             let result = [];
             for (let index = 0; index < array.length; index++) {
@@ -34,23 +34,23 @@
             }
             return result;
         }
-        console.log(flatArray(flatArr));
+        // console.log(flatArray(flatArr));
         // 多种方式实现数组去重
         const uniqueArr = [1, 2, 1, 2, 3, 4, 5];
-        console.log([...new Set(uniqueArr)]);
+        // console.log([...new Set(uniqueArr)]);
         function uniqueArray(array) {
             const result = {};
-            return array.filter(element => {
-                return result.hasOwnProperty(typeof element + element) ? false : (result[typeof element + element] = true);
+            return array.filter(item => {
+                return result.hasOwnProperty(typeof item + item) ? false : (result[typeof item + item] = true);
             });
         }
-        console.log(uniqueArray(uniqueArr));
+        // console.log(uniqueArray(uniqueArr));
         function uniqueArrays(array) {
             return array.filter((item, index, array) => {
                 return array.indexOf(item) === index;
             });
         }
-        console.log(uniqueArrays(uniqueArr));
+        // console.log(uniqueArrays(uniqueArr));
         // 实现函数防抖
         function debounce(fn, delay) {
             let timer;
@@ -94,7 +94,7 @@
             }
             return result;
         }
-        console.log(shallowClone(cloneObject));
+        // console.log(shallowClone(cloneObject));
         // 实现深拷贝
         function deepClone(object, hash = new WeakMap()) {
             if (object === null || typeof object !== 'object') {
@@ -118,7 +118,7 @@
             }
             return result;
         }
-        console.log(deepClone(cloneObject));
+        // console.log(deepClone(cloneObject));
         // 实现instanceof
         function myInstanceOf(left, right) {
             let proto = Object.getPrototypeOf(left);
@@ -141,7 +141,7 @@
             console.log('Person Say');
         }
         const p = new Person('hcc', 25);
-        console.log(myInstanceOf(p, Person), myInstanceOf(p, Array));
+        // console.log(myInstanceOf(p, Person), myInstanceOf(p, Array));
         function changeThis(...args) {
             console.log(...args);
         }
@@ -170,9 +170,9 @@
                 return this.call(context, ...args, ...newArgs);
             }
         }
-        changeThis.myCall(window,1, 2, 3);
-        changeThis.myApply(window,[1, 2, 3]);
-        changeThis.myBind(window,1, 2 , 3)(4, 5, 6);
+        // changeThis.myCall(window,1, 2, 3);
+        // changeThis.myApply(window,[1, 2, 3]);
+        // changeThis.myBind(window,1, 2 , 3)(4, 5, 6);
         const arrayObject = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
         function checkArray(array) {
             if (!Array.isArray(object, method)) {
@@ -273,23 +273,23 @@
             return result;
         }
         // 实现ajax
-        function ajax(url, method, data) {
-            return new Promise(function(resolve, reject) {
+        function ajax(method, url, data) {
+            return new Promise((resolve, reject) => {
                 const xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function() {
-                    if (xhr.readyState !== 4) {
-                        return;
-                    }
-                    if (xhr.status === 200) {
-                        resolve(xhr.responseText);
-                    } else {
-                        reject(new Error(xhr.responseText));
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            resolve(xhr.responseText);
+                        } else {
+                            reject(new Error(xhr.responseText));
+                        }
                     }
                 }
                 xhr.open(method, url, true);
                 xhr.send(data);
             });
         }
+
         // 实现create
         function myCreate(object) {
            function Fn() {};
@@ -309,28 +309,28 @@
             const length = array.length;
             for (let i = 0; i < length; i++) {
                 let flag = false;
-                for (let j = 0; j < length - i - 1; j++) {
-                    if (array[j+1] < array[j]) { // 冒泡一次至少一个元素是有序的
-                        [array[j+1], array[j]] = [array[j], array[j+1]];
+                for (let j = 0; j < length - i - 1; j++) { // 比较的次数比元素数少一
+                    if (array[j + 1] < array[j]) { // 冒泡（循环）一次至少一个元素是有序的
+                        [array[j + 1], array[j]] = [array[j], array[j + 1]];
                         flag = true;
                     }
                 }
-                if (!flag) {
-                    return array; //全部都是有序的
+                if (!flag) { // 循环到某一个元素，一轮都没有元素交换说明有序
+                    return array;
                 }
             }
-            return array; 
+            return array;
         }
-        console.log(bubbleSort(sortArray));
+        // console.log(bubbleSort(sortArray));
         // 实现选择排序
         function selectSort(array) {
             const length = array.length;
             let minIndex;
             for (let i = 0; i < length; i++) {
-                minIndex = i;
-                for (let j = i+1; j < length; j++) {
+                minIndex = i; // 假设第一个元素是最小的
+                for (let j = i+1; j < length; j++) { // 循环剩下的元素，找到比外层元素小的就交换
                     if (array[j] < array[i]) {
-                        minIndex = j;
+                        minIndex = j; // 找到出外层循环元素外最小的一个元素
                     }
                 }
                 [array[i], array[minIndex]] = [array[minIndex], array[i]];
@@ -363,34 +363,29 @@
             const left = [];
             const right = [];
             for (let index = 1; index < length; index++) {
-                if (array[index] > middle) {
-                    right.push(array[index]);
-                } else {
+                if (array[index] < middle) {
                     left.push(array[index]);
+                } else {
+                    right.push(array[index]);
                 }
             }
             return quickSort(left).concat([middle], quickSort(right));
         }
         // console.log(quickSort(sortArray));
-        for (let index = 0; index <3; index++) {
-            (function(index) {
-                setTimeout(function() {
-                    console.log(index);
-                }, 0, index);
-            })(index)
-        }
-        // 实现MUL函数
-        const mul = x => y => z => x * y * z;
-        console.log(mul(1)(2)(3));
-        // 组合式函数
-        const double = x => x * 2;
-        const triple = x => x * 3;
 
-        const pipe = (...fns) => initVal => fns.reduce((initVal, fn) => fn(initVal), initVal);
+        // for (var index = 0; index < 3; index++) {
+        //     console.log(index);
+        // }
 
-        const multiply6 = pipe(double, triple);
+        // for (let index = 0; index < 3; index++) {
+        //     console.log(index);
+        // }
 
-        console.log(multiply6(1));
+        // for (var index = 0; index < 3; index++) {
+        //     (function(index) {
+        //         console.log(index);
+        //     })(index);
+        // }
         // valueOf
         (function() {
             var a = {};
@@ -410,7 +405,7 @@
         },
         this.getNums = function() {
             setTimeout(function() {
-            console.log(this.num);
+                console.log(this.num);
             }, 1000);
         }
         // this.getNums = function() {
