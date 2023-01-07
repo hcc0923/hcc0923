@@ -12,3 +12,4 @@ const handleFormatType = (type: string) => {
 const getUserName = (name: string) => {
     return name;
 }
+
