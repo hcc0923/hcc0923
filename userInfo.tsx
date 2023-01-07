@@ -10,7 +10,7 @@ export interface GetUserName3 {
     name3: string,
     age3: number
 }
-export interface GetUserName {
+export interface UserInfoProps {
     name: string,
     age: number
 }
