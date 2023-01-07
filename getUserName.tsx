@@ -1,5 +1,5 @@
-import { UserNameProps } from "./userInfo";
+import { UserInfoProps } from "./userInfo";
 
-const getUserName = (userInfo: UserNameProps) => {
+const getUserName = (userInfo: UserInfoProps) => {
     return userInfo?.name;
 }
