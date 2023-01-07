@@ -1,3 +1,4 @@
-export interface UserAgeProps {
+export interface UserInfoProps {
+    name: string,
     age: number
 }
