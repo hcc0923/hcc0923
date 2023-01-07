@@ -8,3 +8,7 @@ const handleFormatType = (type: string) => {
             break;
     }
 }
+
+const generateTree = (data: Array<{item: string, id: number}>) => {
+    return data.map(item => item.id % 2 === 0);
+}
