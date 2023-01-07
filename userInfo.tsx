@@ -1,4 +1,4 @@
-interface UserInfoProps {
+export interface UserInfoProps {
     name: string,
     gender: boolean,
     age: number
