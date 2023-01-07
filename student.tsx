@@ -8,3 +8,7 @@ const handleFormatType = (type: string) => {
             break;
     }
 }
+
+const handleResolveTag = (tag: string) => {
+    return tag === 'zh' ? '中文' : 'English';
+}
