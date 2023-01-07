@@ -1,5 +1,5 @@
 import { UserInfoProps } from "./userInfo";
 
-const getUserAge = (userInfo: UserInfoProps) => {
+const getUserName = (userInfo: UserInfoProps) => {
     return userInfo?.age;
 }
