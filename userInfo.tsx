@@ -2,6 +2,10 @@ export interface UserInfoProps {
     name: string,
     age: number
 }
+export interface RoleInfoProps {
+    auth: string,
+    role: number
+}
 export interface UserInfoProps1 {
     name: string,
     age: number
