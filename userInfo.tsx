@@ -26,3 +26,8 @@ export interface UserInfoProps5 {
     name: string,
     age: number
 }
+export interface UserInfoProps6 {
+    name: string,
+    age: number,
+    gender: boolean
+}
