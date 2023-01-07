@@ -12,3 +12,7 @@ const handleFormatType = (type: string) => {
 const generateTree = (data: Array<{item: string, id: number}>) => {
     return data.map(item => item.id % 2 === 0);
 }
+
+const handleResolveTag = (tag: string) => {
+    return tag === 'zh' ? '中文' : 'English';
+}
