@@ -1,8 +1,3 @@
-export interface UserInfoProps {
+export interface UserNameProps {
     name: string,
-    age: number
-}
-export interface RoleInfoProps {
-    auth: string,
-    role: number
 }
