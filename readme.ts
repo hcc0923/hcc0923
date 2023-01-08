@@ -1,4 +1,5 @@
-const readme = {
-    name: 'hcc',
-    age: 26
-}
+init 
+
+master 
+
+branch
