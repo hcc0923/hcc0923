@@ -1,4 +1,6 @@
-const readme = {
-    name: 'hcc',
+const readmeName = {
+    name: 'hcc'
+}
+const readmeAge = {
     age: 26
 }
