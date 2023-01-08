@@ -1,5 +1,5 @@
 const me = {
     name: 'hcc',
-    age: 26
+    age: 26,
+    feature: 'feature'
 }
-const feature = 'feature';
